@@ -1,6 +1,5 @@
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-import os
 import subprocess
 
 
@@ -12,21 +11,24 @@ class MyHandler(FileSystemEventHandler):
         if not event.is_directory and event.src_path.endswith("pas"):
             return event.src_path
         elif not event.is_directory and event.src_path.endswith("txt"):
-            return "\\".join(event.src_path.split('\\')[:-1] + [event.src_path.split('\\')[-1].split('_')[0] + ".pas"])
+            return "\\".join(event.src_path.split('\\')[:-1] + [event.src_path.split('\\')[-1].split('_')[0] + "_.pas"])
         return False
 
     def on_modified(self, event):
-        path = self.work(event)
-        if path:
-            name = event.src_path.split('\\')[-1].split('_')[0]
-            out = "\\".join(event.src_path.split('\\')[:-1] + [event.src_path.split('\\')[-1].split('_')[0] + "_output.txt"])
-            inp = "\\".join(event.src_path.split('\\')[:-1] + [event.src_path.split('\\')[-1].split('_')[0] + "_input.txt"])
-            print(rf'"C:\Program Files (x86)\PascalABC.NET\pabcnetc.exe" "{inp}" "{out}"')
-            print(rf'"{path[:-3]}exe" "{inp}" "{out}"')
-            subprocess.call(rf'"C:\Program Files (x86)\PascalABC.NET\pabcnetc.exe" "{path}"')
-            print("compiled")
-            subprocess.call(rf'"{path[:-3]}exe" "{inp}" "{out}"')
-            print("run")
+        try:
+            path = self.work(event)
+            if path:
+                name = event.src_path.split('\\')[-1].split('_')[0]
+                out = "\\".join(event.src_path.split('\\')[:-1] + [event.src_path.split('\\')[-1].split('_')[0] + "_output.txt"])
+                inp = "\\".join(event.src_path.split('\\')[:-1] + [event.src_path.split('\\')[-1].split('_')[0] + "_input.txt"])
+                print(rf'"C:\Program Files (x86)\PascalABC.NET\pabcnetc.exe" "{inp}" "{out}"')
+                print(rf'"{path[:-3]}exe" "{inp}" "{out}"')
+                subprocess.call(rf'"C:\Program Files (x86)\PascalABC.NET\pabcnetc.exe" "{path}"')
+                print("compiled")
+                subprocess.call(rf'"{path[:-3]}exe" "{inp}" "{out}"')
+                print("run")
+        except Exception as ex:
+            print("\n\n\n\n\n", ex)
 
     def on_deleted(self, event):
         if self.work(event):

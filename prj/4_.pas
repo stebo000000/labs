@@ -17,7 +17,7 @@ var
     is_exists: boolean = true;
     counter : integer = 0;
     sum : real;
-    max_sum: real = 0;
+    max_sum: real;
 
 begin
 if ParamCount < 2 then
@@ -32,9 +32,9 @@ begin
         Reset(f);
         readln(f, n);
         for i: integer := 1 to n do
-            readln(f, a[i]);
+            read(f, a[i]);
         for i: integer := 1 to n do
-            readln(f, c[i]);
+            read(f, c[i]);
         readln(f, b);
         CloseFile(f);
 
@@ -58,13 +58,14 @@ begin
             end;
             AssignFile(f, ParamStr(2));
             rewrite(f);
-            writeln(f, 'число < 0: ', counter);
+            writeln(f, 'чисел < 0: ', counter);
             for i: integer := 1 to n do write(f, ' ', c[i]);
             CloseFile(f);
         end
         else
         begin
-            for i: integer := 1 to n do
+            max_sum := abs(a[1] + c[n]);
+            for i: integer := 2 to n do
             begin
                 sum := abs(a[i] + c[n - i + 1]);
                 if sum > max_sum then max_sum := sum
