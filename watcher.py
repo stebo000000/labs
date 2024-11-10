@@ -37,7 +37,6 @@ class MyHandler(FileSystemEventHandler):
 
 handler = MyHandler()
 observer = Observer()
-# отслеживаемый путь
 path = __file__[:-10] + "prj"
 observer.schedule(handler, path=path, recursive=True)
 observer.start()
