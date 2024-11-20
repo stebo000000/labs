@@ -25,8 +25,8 @@ class MyHandler(FileSystemEventHandler):
                 print(rf'"{path[:-3]}exe" "{inp}" "{out}"')
                 subprocess.call(rf'"C:\Program Files (x86)\PascalABC.NET\pabcnetc.exe" "{path}"')
                 print("compiled")
-                subprocess.call(rf'"{path[:-3]}exe" "{inp}" "{out}"')
-                print("run")
+                out_prg = subprocess.getoutput(rf'"{path[:-3]}exe" "{inp}" "{out}"')
+                print("run", out_prg, sep='\n')
         except Exception as ex:
             print("\n\n\n\n\n", ex)
 

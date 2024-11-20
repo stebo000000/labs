@@ -34,7 +34,6 @@ begin
             CloseFile(f);
 
             column := 0;
-            counter := 0;
             while (column < m) and (not column_was_found) do
             begin
                 column += 1;
@@ -42,20 +41,26 @@ begin
                 row := 0;
                 sum := 0;
                 positive_was_found := false;
-                for row := 1 to n do
+                while (row < n) and (not positive_was_found) do
                 begin
-                    if a[row, column] >= 0 then positive_was_found := true;
-                    sum += a[row, column];
+                    row += 1;
+                    if a[row, column] >= 0 then positive_was_found := true
                 end;
-                if sum > 0 then counter += 1;
-                if not positive_was_found then column_was_found := true;
+                if not positive_was_found then column_was_found := true
             end;
 
             AssignFile(f, ParamStr(2));
             rewrite(f);
-            if column_was_found then writeln(f, 'Отрицательный столбец: ', column) else writeln(f, 'Отрицательный столбец не найден');
+            if column_was_found then
+                writeln(f, 'Отрицательный столбец: ', column)
+            else
+            begin
+                writeln(f, 'Отрицательный столбец не найден');
+                column := 1
+            end;
             CloseFile(f);
 
+            counter := 0;
             for j: integer := column + 1 to m do
             begin
                 sum := 0;

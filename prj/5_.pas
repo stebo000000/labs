@@ -35,12 +35,14 @@ begin
             CloseFile(f);
 
             is_exists := false;
-            d_index := 0;
-            while (d_index < n) and (not is_exists) do 
+            d_index := n + 1;
+            while (d_index > 1) and (not is_exists) do 
             begin
-                d_index += 1;             
+                d_index -= 1;             
                 if a[d_index] = d then is_exists := true;
             end;
+
+            if not is_exists then d_index := n;
 
             min_el_index := 0;
             min_el := -1;

@@ -40,7 +40,7 @@ begin
 
         {for i : integer := 1 to n do if b > a[i] then is_exists := false;}
         var ii : integer = 1;
-        while (ii < n) and not is_exists do 
+        while (ii < n) and (is_exists) do 
         begin
             if b > a[ii] then is_exists := false;
             ii += 1
@@ -50,11 +50,8 @@ begin
         begin
             for i: integer := 1 to n do
             begin
-                if c[i] < 0 then
-                begin
-                    counter += 1;
-                    c[i] := c[i] / i;
-                end;
+                if c[i] > 0 then c[i] := c[i] / i;
+                if c[i] < 0 then counter += 1;
             end;
             AssignFile(f, ParamStr(2));
             rewrite(f);
