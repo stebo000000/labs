@@ -7,6 +7,8 @@ const
 
 type
     matrix = array [1..nmax, 1..nmax] of integer;
+    func = function(x: integer): integer;
+    vector = array [1..nmax] of integer;
 implementation
 initialization
 finalization
