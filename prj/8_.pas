@@ -49,6 +49,7 @@ end;
 
 function mean(var arr: arr_type; n: integer): real;
 begin
+    result := 0;
     for i: integer := 1 to n do result += arr[i];
     result := result / n
 end;
@@ -104,18 +105,24 @@ begin
             input(b, nb, mb, pb);
             input(c, nc, mc, pc);
 
-            form_array(a, d, pa, nd, 1, na, ma div 2 + 1, ma);
+            if ma mod 2 <> 0 then
+                form_array(a, d, pa, nd, 1, na, ma div 2 + 2, ma)
+            else
+                form_array(a, d, pa, nd, 1, na, ma div 2 + 1, ma);
             form_array(b, e, pb, ne, 1, nb div 2, 1, mb);
-            form_array(c, f, pc, nf, nc div 2 + 1, nc, 1, mc);
+            if nc mod 2 <> 0 then
+                form_array(c, f, pc, nf, nc div 2 + 2, nc, 1, mc)
+            else
+                form_array(c, f, pc, nf, nc div 2 + 1, nc, 1, mc);
 
             if ne <> 0 then
             begin
                 arrm2 := mean(e, ne);
-                ne := ne - change_array(e, ne, arrm3);
+                nd := nd - change_array(d, nd, arrm2);
                 if nf <> 0 then
                 begin
                     arrm3 := mean(f, nf);
-                    nd := nd - change_array(d, nd, arrm2);
+                    ne := ne - change_array(e, ne, arrm3);
                 end;
             end;
 

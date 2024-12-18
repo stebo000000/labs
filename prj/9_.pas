@@ -1,4 +1,3 @@
-
 program Lab12;
 
 const
