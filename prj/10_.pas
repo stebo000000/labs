@@ -37,8 +37,6 @@ begin
         trans(a, na, ma);
         trans(b, nb, mb);
         trans(c, nc, mc);
-
-        writeln(a);
         
         pat := calculate_absolute_value(a, na, ma);
         pbt := calculate_absolute_value(b, nb, mb);

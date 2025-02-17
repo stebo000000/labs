@@ -18,7 +18,7 @@ class MyHandler(FileSystemEventHandler):
         try:
             path = self.work(event)
             if path:
-                name = event.src_path.split('\\')[-1].split('_')[0]
+                # name = event.src_path.split('\\')[-1].split('_')[0]
                 out = "\\".join(event.src_path.split('\\')[:-1] + [event.src_path.split('\\')[-1].split('_')[0] + "_output.txt"])
                 inp = "\\".join(event.src_path.split('\\')[:-1] + [event.src_path.split('\\')[-1].split('_')[0] + "_input.txt"])
                 print(rf'"C:\Program Files (x86)\PascalABC.NET\pabcnetc.exe" "{inp}" "{out}"')

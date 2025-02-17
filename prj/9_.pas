@@ -64,7 +64,7 @@ begin
     begin
         for j: integer := i to n do
         begin
-            if (mx[i, j] mod 2) <> 0.0 then
+            if (mx[i, j] mod 2) <> 0 then
             begin
                 result +=mx[i, j]
             end;
