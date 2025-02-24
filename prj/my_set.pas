@@ -3,7 +3,7 @@ unit my_set;
 interface
 type
     UsherbSet = record
-        values : array [0..255] of boolean;
+        values : array of boolean;
         
         {static procedure operator:=(new_set: set of char; var u_set: UsherbSet);
         begin
@@ -22,6 +22,7 @@ type
 
         static function operator+(u_set1, u_set2: UsherbSet): UsherbSet;
         begin
+            SetLength(result.values, 256);
             for i: integer := 0 to 255 do 
                 if u_set1.values[i] or u_set2.values[i] then
                 begin
@@ -35,6 +36,7 @@ type
 
         static function operator*(u_set1, u_set2: UsherbSet): UsherbSet;
         begin
+            SetLength(result.values, 256);
             for i: integer := 0 to 255 do 
                 if u_set1.values[i] and u_set2.values[i] then
                 begin
@@ -48,6 +50,7 @@ type
         
         static function operator-(u_set1, u_set2: UsherbSet): UsherbSet;
         begin
+            SetLength(result.values, 256);
             for i: integer := 0 to 255 do 
             begin
                 result.values[i] := false;
@@ -66,6 +69,7 @@ type
 
         static function operator implicit(u_set: set of char): UsherbSet;
         begin
+            SetLength(result.values, 256);
             for i: integer := 0 to 255 do 
             begin
                 result.values[i] := false;

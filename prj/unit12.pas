@@ -34,7 +34,6 @@ begin
                 result += mx[i, j];
                 counter += 1;
             end;
-            
         end;
     end;
     result := result / counter;

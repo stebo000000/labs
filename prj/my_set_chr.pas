@@ -4,7 +4,7 @@ interface
 type
     UsherbSet = record
         len: integer := 0;
-        values : array [0..255] of char;
+        values : array of char;
         
         {static procedure operator:=(new_set: array of char; var u_set: UsherbSet);
         begin
@@ -19,6 +19,7 @@ type
 
         static procedure operator+=(var u_set: UsherbSet; new_element: char);
         begin
+            SetLength(u_set.values, u_set.len + 1);
             u_set.values[u_set.len] := new_element;
             u_set.len += 1;
         end;
@@ -65,9 +66,9 @@ type
         static function operator implicit(new_set: set of char): UsherbSet;
         begin
             result.len := 0;
-
             foreach var i in new_set do
             begin
+                SetLength(result.values, result.len + 1);
                 result.values[result.len] := i;
                 result.len += 1;
             end;

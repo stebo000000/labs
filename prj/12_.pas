@@ -6,8 +6,8 @@ var
     f: TextFile;
     a, b: matrix;
 
-    na, nb, nc: integer;
-    ma, mb, mc: integer;
+    na, nb: integer;
+    ma, mb: integer;
 
     mean_a1, mean_b1, mean_a2, mean_b2: real;
 

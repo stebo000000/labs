@@ -1,5 +1,5 @@
 program MySet;
-uses my_set_chr;
+uses my_set;
 
 var
     a, b, c, r: UsherbSet;
@@ -65,25 +65,25 @@ begin
             write(f, ch);
     writeln(f, ']');
 
-    write(f, 'Объединение: [');
+    write(f, 'Union: [');
     r := a + b;
     for ch := chr(0) to chr(255) do
         if ch in r then
             write(f, ch);
     writeln(f, ']');
-    write(f, 'Пересечение: [');
+    write(f, 'Intersection: [');
     r := a * b;
     for ch := chr(0) to chr(255) do
         if ch in r then
             write(f, ch);
     writeln(f, ']');
-    write(f, 'Разность:    [');
-    r := a - b;
+    write(f, 'Difference:    [');
+    r := b - c;
     for ch := chr(0) to chr(255) do
         if ch in r then
             write(f, ch);
     writeln(f, ']');
-    write(f, 'Выражение:   [');
+    write(f, 'task:   [');
     r := (a * b) - (b - c);
     for ch := chr(0) to chr(255) do
         if ch in r then
