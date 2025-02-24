@@ -11,7 +11,10 @@ procedure output(value: integer; var f: TextFile);
 
 implementation
 
-procedure input(var mx: matrix; var n: integer; var m: integer; var f: TextFile);
+procedure input(var mx: matrix; var f: TextFile);
+var
+    n: integer := 0;
+    m: integer := 0;
 begin
     read(f, n);
     read(f, m);
