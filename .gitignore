@@ -2,3 +2,5 @@
 *.pdb
 *.code-workspace
 *.txt
+*.bat
+start_listener.bat
