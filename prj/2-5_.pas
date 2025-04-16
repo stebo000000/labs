@@ -16,8 +16,8 @@ begin
 
     AssignFile(f1, ParamStr(1));
     AssignFile(f, ParamStr(2));
-    AssignFile(ff, 'D:\labs\txts\ff.txt');
-    AssignFile(sf, 'D:\labs\txts\sf.txt');
+    AssignFile(ff, 'C:\ush\projects\labs\txts\ff.txt');
+    AssignFile(sf, 'C:\ush\projects\labs\txts\sf.txt');
 
     Reset(f1);
     Rewrite(f);
@@ -33,7 +33,7 @@ begin
 
     counter := 1;
 
-    while counter < len*2 do
+    while counter < 3 do
     begin
         
         Reset(f);
@@ -51,6 +51,7 @@ begin
         CloseFile(f);
         CloseFile(ff);
         CloseFile(sf);
+        
 
         counter *= 2;
         writeln(counter);
