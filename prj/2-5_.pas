@@ -16,8 +16,8 @@ begin
 
     AssignFile(f1, ParamStr(1));
     AssignFile(f, ParamStr(2));
-    AssignFile(ff, 'C:\ush\projects\labs\txts\ff.txt');
-    AssignFile(sf, 'C:\ush\projects\labs\txts\sf.txt');
+    AssignFile(ff, 'D:\labs\txts\ff.txt');
+    AssignFile(sf, 'D:\labs\txts\sf.txt');
 
     Reset(f1);
     Rewrite(f);
@@ -27,19 +27,19 @@ begin
     CloseFile(f);
 
     writeln(ParamStr(1));
-    writeln(len);
+    // writeln(len);
     writeln('UwU');
     writeln('UwU');
 
     counter := 1;
 
-    while counter < 3 do
+    while counter < len do
     begin
         
         Reset(f);
         Rewrite(ff);
         Rewrite(sf);
-        divide_file(f, ff, sf, len);
+        divide_file(f, ff, sf, len, counter);
         CloseFile(f);
         CloseFile(ff);
         CloseFile(sf);
