@@ -33,7 +33,7 @@ begin
 
     counter := 1;
 
-    while counter < 5 do
+    while true do
     begin
         
         Reset(f);
@@ -47,6 +47,14 @@ begin
         Rewrite(f);
         Reset(ff);
         Reset(sf);
+        if eof(sf) then
+        begin
+            copy_file(ff, f);
+            CloseFile(f);
+            CloseFile(ff);
+            CloseFile(sf);
+            break;
+        end;
         concat_files(f, ff, sf, counter, len);
         CloseFile(f);
         CloseFile(ff);
