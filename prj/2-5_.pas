@@ -47,7 +47,6 @@ begin
     // write_count_of_stupids(arr);
 
 
-
     pickme_sort(tf, scholarship_sort);
     write_in_file(tf, f);
     writeln(f);
