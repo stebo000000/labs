@@ -1,4 +1,4 @@
-unit compire_funcs;
+unit compare_funcs;
     
 interface
 uses types;

@@ -1,6 +1,6 @@
 program no_game_no_life;
 
-uses types, compire_funcs, sort_in_array, sort_in_file, to_typed_file;
+uses types, compare_funcs, sort_in_array, sort_in_file, to_typed_file;
 
 var
     f: TextFile;
