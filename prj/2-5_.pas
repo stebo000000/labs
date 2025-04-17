@@ -1,5 +1,5 @@
 program kys;
-uses external_sort;
+uses external_sort_2;
 
 var
     len, counter: integer;
@@ -33,7 +33,7 @@ begin
 
     counter := 1;
 
-    while counter < len do
+    while counter < 5 do
     begin
         
         Reset(f);
