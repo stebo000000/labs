@@ -1,10 +1,11 @@
-program kys;
-uses external_sort_2;
+program no_game_no_life;
+
+uses types, compire_funcs, sort_in_array, sort_in_file, to_typed_file;
 
 var
-    len, counter: integer;
-    f1, f, sf, ff: TextFile;
-    t1, t2, t3, t4: System.DateTime;
+    f: TextFile;
+    tf: file of Student;
+    arr: array of Student;
 
 
 begin
@@ -13,60 +14,49 @@ begin
         writeln('Недостаточно параметров');
         exit;
     end;
-
-    AssignFile(f1, ParamStr(1));
-    AssignFile(f, ParamStr(2));
-    AssignFile(ff, 'D:\labs\txts\ff.txt');
-    AssignFile(sf, 'D:\labs\txts\sf.txt');
-
-    Reset(f1);
-    Rewrite(f);
-    readln(f1, len);
-    copy_file(f1, f);
-    CloseFile(f1);
-    CloseFile(f);
-
-    writeln(ParamStr(1));
-    // writeln(len);
-    writeln('UwU');
-    writeln('UwU');
-
-    counter := 1;
-
-    while true do
-    begin
-        
+    try
+        AssignFile(f, ParamStr(1));
         Reset(f);
-        Rewrite(ff);
-        Rewrite(sf);
-        divide_file(f, ff, sf, len, counter);
-        CloseFile(f);
-        CloseFile(ff);
-        CloseFile(sf);
-
-        Rewrite(f);
-        Reset(ff);
-        Reset(sf);
-        if eof(sf) then
-        begin
-            copy_file(ff, f);
-            CloseFile(f);
-            CloseFile(ff);
-            CloseFile(sf);
-            break;
-        end;
-        concat_files(f, ff, sf, counter, len);
-        CloseFile(f);
-        CloseFile(ff);
-        CloseFile(sf);
-        
-
-        counter *= 2;
-        writeln(counter);
+    except
+        writeln('Невозможно открыть файл ''', Paramstr(1), ''' для чтения');
+        exit;
     end;
 
-    writeln('UwU');
+    AssignFile(tf, 'D:\labs\nt.fs');
+    Reset(tf);
+    copy_to_typed_file(f, tf);
+    CloseFile(tf);
+
+    Reset(tf);
+    try
+        AssignFile(f, ParamStr(2));
+        Rewrite(f);
+    except
+        writeln('Невозможно открыть файл ''', Paramstr(2), ''' для записи');
+        exit;
+    end;
 
 
-    
+    // read_in_array(arr, tf);
+    // quick_sort(arr, 0, high(arr), scholarship_sort);
+    // write_in_text_file(arr, f);
+    // writeln(f);
+    // quick_sort(arr, 0, high(arr), group_and_date_sort);
+    // write_in_text_file(arr, f);
+    // write_stupids(arr);
+    // write_count_of_stupids(arr);
+
+
+
+    pickme_sort(tf, scholarship_sort);
+    write_in_file(tf, f);
+    writeln(f);
+    pickme_sort(tf, group_and_date_sort);
+    write_in_file(tf, f);
+    write_stupids(tf);
+    write_count_of_stupids(tf);
+
+    CloseFile(f);
+    CloseFile(tf);
+
 end.
