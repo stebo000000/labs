@@ -6,10 +6,6 @@ const
     nmax = 10;
 
 type
-    matrix = array [1..nmax, 1..nmax] of integer;
-    func = function(x: integer): integer;
-    vector = array [1..nmax] of integer;
-
     Student = record 
         grp: string[100];
         fio: record

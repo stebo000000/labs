@@ -73,10 +73,11 @@ end;
 procedure write_stupids(tf: file of Student);
 var buffer: Student;
 begin
+    seek(tf, 0);
     while not eof(tf) do
     begin
         read(tf, buffer);
-        if (count_of_2(buffer) > 2) and (buffer.gender = 'male') then writeln(buffer.fio.surname);
+        if (count_of_2(buffer) > 2) and (buffer.gender = 'male') then writeln(buffer);
     end;
 end;
 
@@ -85,6 +86,7 @@ var
     counter: integer := 0;
     buffer: Student;
 begin
+    seek(tf, 0);
     while not eof(tf) do
     begin
         read(tf, buffer);
