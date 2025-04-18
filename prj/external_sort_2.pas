@@ -31,7 +31,7 @@ begin
 
     while not eof(input_file) do
     begin
-        while (was_wrote < buffer) and not eof(input_file) do
+        while (was_wrote <= buffer) and not eof(input_file) do
         begin
             writeln(ff, buffer);
             was_wrote := buffer;
@@ -45,7 +45,7 @@ begin
             was_wrote := buffer;
             readln(input_file, buffer);
         end
-        else if (was_wrote < buffer) then 
+        else if (was_wrote <= buffer) then 
         begin
             writeln(ff, buffer);
             break;
@@ -57,7 +57,7 @@ begin
         end;
 
 
-        while (was_wrote < buffer) and not eof(input_file) do
+        while (was_wrote <= buffer) and not eof(input_file) do
         begin
             writeln(sf, buffer);
             was_wrote := buffer;
@@ -71,7 +71,7 @@ begin
             was_wrote := buffer;
             readln(input_file, buffer);
         end
-        else if (was_wrote < buffer) then 
+        else if (was_wrote <= buffer) then 
         begin
             writeln(sf, buffer);
             break;
@@ -81,11 +81,6 @@ begin
             writeln(ff, buffer);
             break;
         end;
-    end;
-
-    if (was_wrote < buffer) then
-    begin
-        
     end;
 end;
 
@@ -106,7 +101,7 @@ begin
 
         while true do
         begin
-            writeln('a b ', a, ' ', b);
+            // writeln('a b ', a, ' ', b);
             if (a < b) then
             begin
                 writeln(output_file, a);
@@ -148,7 +143,7 @@ begin
                 end
                 else if eof(sf) and (b = -1) then
                 begin
-                writeln('bb ' , b);
+                // writeln('bb ' , b);
                     writeln(output_file, a);
                     is_end := true;
                     break;
@@ -161,8 +156,8 @@ begin
         if ca then
         begin
             while true do
-            writeln('b: ', b);
             begin
+                // writeln('b: ', b);
                 writeln(output_file, b);
                 if not eof(sf) then readln(sf, b)
                 else
@@ -188,7 +183,7 @@ begin
         begin
             while true do
             begin
-            writeln('a: ', a);
+            // writeln('a: ', a);
                 writeln(output_file, a);
                 if not eof(ff) then readln(ff, a) 
                 else

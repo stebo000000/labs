@@ -34,7 +34,7 @@ end;
 
 procedure concat_files(output_file, ff, sf: TextFile; const seq_len, len: integer);
 var
-    a, b, ca, cb, cake: integer;
+    a, b, ca, cb: integer;
     is_end: boolean := false;
 begin
     readln(ff, a);
