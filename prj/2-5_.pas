@@ -22,7 +22,7 @@ begin
         exit;
     end;
 
-    AssignFile(tf, 'D:\labs\nt.fs');
+    AssignFile(tf, 'C:\ush\projects\labs\nt.fs');
     Reset(tf);
     copy_to_typed_file(f, tf);
     CloseFile(tf);
