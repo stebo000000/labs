@@ -145,6 +145,23 @@ type
             Self.delete_leaf(current_node);
         end;
 
+        function counter(current_node: ^Node := nil; is_start: boolean := true): integer;
+        begin
+            if is_start then current_node := Self.root;
+
+            if (nil <> current_node^.left_node) then
+            begin
+                result := get_node_by_data(current_node^.left_node, false) + (current_node^.data < 0 ? 1 : 0);
+            end;
+
+            if (nil <> current_node^.right_node) then
+            begin
+                result := get_node_by_data(current_node^.right_node, false) + (current_node^.data < 0 ? 1 : 0);
+            end;
+
+            result := (current_node^.data < 0 ? 1 : 0);
+        end;
+
     end;
 implementation
     
