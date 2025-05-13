@@ -4,12 +4,13 @@ interface
 
 
 type
+    LE = ^ULE;
     ULE = record
         next_el_pointer: ^ULE;
         data: real;
     end;
 
-    UnidirectionalList = record
+    List = record
         first_el_pointer: ^ULE;
     
         private
@@ -25,6 +26,15 @@ type
             new_el := current^.next_el_pointer;
             current^.next_el_pointer := nil;
             dispose(new_el);
+        end;
+
+        function return_first_negative(): ^ULE;
+        var
+            current: ^ULE := Self.first_el_pointer;
+            new_el: ^ULE;
+        begin
+            while (current <> nil) and (current^.data >= 0) do current := current^.next_el_pointer;
+            result := current;
         end;
 
         procedure delete_el(var target: ^ULE);
@@ -56,15 +66,11 @@ type
             Self.first_el_pointer := nil;
         end;
 
-
-        function return_first_negative(): ^ULE;
-        var
-            current: ^ULE := Self.first_el_pointer;
-            new_el: ^ULE;
+        procedure search(var fn, ln: ^ULE);
         begin
-            while (current^.next_el_pointer <> nil) and (current^.data >= 0) do current := current^.next_el_pointer;
-            result := current;
+            fn := Self.return_first_negative();
         end;
+        
 
         procedure delete_all_negative();
         var
@@ -94,22 +100,13 @@ type
             current: ^ULE := Self.first_el_pointer;
             new_el: ^ULE;
         begin
-            if current = nil then 
+            if (current = nil) or (current^.data < el) then
             begin
                 new(new_el);
-                new_el^.next_el_pointer := nil;
+                new_el^.next_el_pointer := current;
                 new_el^.data := el;
 
                 Self.first_el_pointer := new_el;
-            end
-            else if current^.data < el then
-            begin
-                new(new_el);
-                new_el^.next_el_pointer := current^.next_el_pointer;
-                new_el^.data := current^.data;
-
-                current^.next_el_pointer := new_el;
-                current^.data := el;
             end
             else
             begin
@@ -151,23 +148,12 @@ type
             current: ^ULE := Self.first_el_pointer;
             new_el: ^ULE;
         begin
+            new(new_el);
+            new_el^.next_el_pointer := current;
+            new_el^.data := el;
 
-            if current = nil then
-            begin
-                new(new_el);
-                new_el^.next_el_pointer := nil;
-                new_el^.data := el;
+            Self.first_el_pointer := new_el;
 
-                Self.first_el_pointer := new_el;
-            end
-            else
-            begin
-                new(new_el);
-                new_el^.next_el_pointer := current;
-                new_el^.data := el;
-
-                Self.first_el_pointer := new_el;
-            end;
         end;
 
         procedure write_list();

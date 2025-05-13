@@ -1,16 +1,17 @@
-unit my_list;
+unit my_list2;
     
 interface
 
 
 type
+    LE = ^BLE;
     BLE = record
         next_el_pointer: ^BLE;
         prev_el_pointer: ^BLE;
         data: real;
     end;
 
-    BidirectionalList = record
+    List = record
         first_el_pointer: ^BLE;
         last_el_pointer: ^BLE;
     
@@ -29,11 +30,34 @@ type
             dispose(new_el);
         end;
 
-        procedure delete_el(var target: ^BLE);
+        function return_first_negative(): ^BLE;
+        var
+            current: ^BLE := Self.first_el_pointer;
+            new_el: ^BLE;
         begin
-            target^.prev_el_pointer^.next_el_pointer := target^.next_el_pointer;
+            while (current <> nil) and (current^.data >= 0) do current := current^.next_el_pointer;
+            result := current;
+        end;
+
+        function return_last_negative(): ^BLE;
+        var
+            current: ^BLE := Self.last_el_pointer;
+            new_el: ^BLE;
+        begin
+            while (current <> nil) and (current^.data >= 0) do current := current^.prev_el_pointer;
+            result := current;
+        end;
+
+        procedure delete_el(var target: ^BLE);
+        var current: ^BLE;
+        begin
+            current := target^.next_el_pointer;
+            if target^.prev_el_pointer <> nil then
+                target^.prev_el_pointer^.next_el_pointer := target^.next_el_pointer;
+            if target^.next_el_pointer <> nil then
+                target^.next_el_pointer^.prev_el_pointer := target^.prev_el_pointer;
             dispose(target);
-            target := current^.next_el_pointer;
+            target := current;
         end;
 
 
@@ -44,10 +68,11 @@ type
         begin
             new(new_el);
             new_el^.next_el_pointer := target^.next_el_pointer;
+            new_el^.prev_el_pointer := target;
             new_el^.data := el;
 
+            if target^.next_el_pointer = nil then Self.last_el_pointer := new_el;
             target^.next_el_pointer := new_el;
-            if target.next_el_pointer = nil then Self.last_el_pointer = new_el;
         end;
 
         procedure init();
@@ -57,22 +82,10 @@ type
         end;
 
 
-        function return_first_negative(): ^BLE;
-        var
-            current: ^BLE := Self.first_el_pointer;
-            new_el: ^BLE;
+        procedure search(var fn, ln: ^BLE);
         begin
-            while (current^.next_el_pointer <> nil) and (current^.data >= 0) do current := current^.next_el_pointer;
-            result := current;
-        end;
-        
-        function return_last_negative(): ^BLE;
-        var
-            current: ^BLE := Self.first_el_pointer;
-            new_el: ^BLE;
-        begin
-            while (current^.last_el_pointer <> nil) and (current^.data >= 0) do current := current^.last_el_pointer;
-            result := current;
+            fn := Self.return_first_negative();
+            ln := Self.return_last_negative();
         end;
 
         procedure delete_all_negative();
@@ -87,7 +100,7 @@ type
                         if Self.first_el_pointer = current then Self.first_el_pointer := current^.next_el_pointer;
                         if Self.last_el_pointer = current then Self.last_el_pointer := current^.prev_el_pointer;
                         Self.delete_el(current)
-                    end;
+                    end
                     else
                     current := current^.next_el_pointer;
                 end;
@@ -99,27 +112,18 @@ type
             Self.sub_destroy(Self.first_el_pointer);
         end;
 
-        procedure insert_by_rBLE(el: real);
+        procedure insert_by_rule(el: real);
         var
             current: ^BLE := Self.first_el_pointer;
             new_el: ^BLE;
         begin
-            if current = nil then 
+            if (current = nil) or (current^.data < el) then
             begin
                 new(new_el);
-                new_el^.next_el_pointer := nil;
+                new_el^.next_el_pointer := current;
                 new_el^.data := el;
 
                 Self.first_el_pointer := new_el;
-            end
-            else if current^.data < el then
-            begin
-                new(new_el);
-                new_el^.next_el_pointer := current^.next_el_pointer;
-                new_el^.data := current^.data;
-
-                current^.next_el_pointer := new_el;
-                current^.data := el;
             end
             else
             begin
@@ -141,6 +145,7 @@ type
             begin
                 new(new_el);
                 new_el^.next_el_pointer := nil;
+                new_el^.prev_el_pointer:= nil;
                 new_el^.data := el;
 
                 Self.first_el_pointer := new_el;
@@ -150,6 +155,7 @@ type
             begin
                 new(new_el);
                 new_el^.next_el_pointer := nil;
+                new_el^.prev_el_pointer:= Self.last_el_pointer;
                 new_el^.data := el;
 
                 Self.last_el_pointer^.next_el_pointer := new_el;
@@ -163,23 +169,14 @@ type
             new_el: ^BLE;
         begin
 
+            new(new_el);
+            new_el^.data := el;
+            new_el^.next_el_pointer := current;
+
             if current = nil then
-            begin
-                new(new_el);
-                new_el^.next_el_pointer := nil;
-                new_el^.data := el;
-
-                Self.first_el_pointer := new_el;
                 Self.last_el_pointer := new_el;
-            end
-            else
-            begin
-                new(new_el);
-                new_el^.next_el_pointer := current;
-                new_el^.data := el;
 
-                Self.first_el_pointer := new_el;
-            end;
+            Self.first_el_pointer := new_el;
         end;
 
         procedure write_list();
@@ -190,6 +187,17 @@ type
             begin
                 writeln(current^.data);
                 current := current^.next_el_pointer;
+            end;
+            writeln('');
+        end;
+        procedure write_list_reversed();
+        var
+            current: ^BLE := Self.last_el_pointer;
+        begin
+            while current <> nil do 
+            begin
+                writeln(current^.data);
+                current := current^.prev_el_pointer;
             end;
             writeln('');
         end;

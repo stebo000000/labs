@@ -4,28 +4,28 @@ uses my_list;
 
 var
     f: TextFile;
-    list: UnidirectionalList;
-    fn, ln: ^ULE;
+    lst: List;
+    fn, ln: LE;
 
 
-procedure input(var list: UnidirectionalList; f: TextFile);
+procedure input(var lst: List; f: TextFile);
 var buffer: real;
 begin
     while not eof(f) do
     begin
         readln(f, buffer);
-        list.append(buffer);
+        lst.append(buffer);
     end;
 end;
 
 
-procedure right_input(var list: UnidirectionalList; f: TextFile);
+procedure right_input(var lst: List; f: TextFile);
 var buffer: real;
 begin
     while not eof(f) do
     begin
         readln(f, buffer);
-        list.insert_by_rule(buffer);
+        lst.insert_by_rule(buffer);
     end;
 end;
 
@@ -45,30 +45,38 @@ begin
         exit;
     end;
 
-    list.init();
-    input(list, f);
-    list.write_list();
-    list.append(-5.8);
-    list.insert_first(0.1);
-    list.write_list();
+    lst.init();
+    input(lst, f);
+    writeln('first input');
+    lst.write_list();
+    lst.append(-5.8);
+    lst.insert_first(0.1);
+    writeln('insert first & append');
+    lst.write_list();
 
-    fn := list.return_first_negative();
-    list.insert_after(0.2, fn);
-    list.write_list();
+    lst.search(fn, ln);
+    if fn <> nil then
+        lst.insert_after(0.2, fn);
+    writeln('insert after negative');
+    lst.write_list();
     
-    list.delete_all_negative();
-    list.write_list();
+    lst.delete_all_negative();
+    writeln('del all neg');
+    lst.write_list();
 
-    list.destroy();
+    lst.destroy();
 
     Reset(f);
 
-    list.init();
-    right_input(list, f);
-    list.write_list();
-    fn := list.return_first_negative();
-    writeln('neg: ', fn^.data);
-    list.delete_all_negative();
-    list.write_list();
-    list.destroy();
+    lst.init();
+    right_input(lst, f);
+    writeln('right input');
+    lst.write_list();
+    lst.search(fn, ln);
+    if fn <> nil then
+        writeln('neg: ', fn^.data);
+    lst.delete_all_negative();
+    writeln('del all neg');
+    lst.write_list();
+    lst.destroy();
 end.
