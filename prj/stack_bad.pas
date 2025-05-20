@@ -5,7 +5,7 @@ interface
 type
     Stack = record
         len: integer := 0;
-        array_len: integer := 5;
+        array_len: integer := 0;
         data: array of real;
 
         function is_empty(): boolean;

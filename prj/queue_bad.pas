@@ -5,7 +5,7 @@ interface
 type
     Stack = record
         s, e: integer := 0;
-        array_len: integer := 5;
+        array_len: integer := 0;
         data: array of real;
 
         function is_empty(): boolean;
@@ -20,6 +20,7 @@ type
                 Self.s := 0;
                 Self.e := 0;
                 SetLength(Self.data, 5);
+                array_len := 5;
             end;
             if Self.e + 2 < Self.array_len then
             begin

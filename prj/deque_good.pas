@@ -3,13 +3,13 @@ unit btree;
 interface
 
 type
-    QE = record
+    DE = record
         data: real;
         next: ^QE;
         prev: ^QE;
     end;
 
-    Queue = record
+    Deque = record
         top: ^QE;
         bottom: ^QE;
 
@@ -63,11 +63,26 @@ type
             if Self.bottom = nil then
                 Self.top := Self.bottom;
         end;
+        
+        function pop(): real;
+        begin
+            result := Self.get_last;
+        end;
 
         procedure destroy();
         begin
             while not Self.is_empty do
                 Self.pop(Self.top);
+        end;
+
+        procedure scan();
+        var current_el: ^DE := Self.top;
+        begin
+            while current_el <> nil do
+            begin
+                writeln(current_el^.data);
+                current_el := current_el^.next;
+            end;
         end;
 
     end;

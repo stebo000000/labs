@@ -46,6 +46,16 @@ type
                 Self.pop(Self.top);
         end;
 
+        procedure scan();
+        var current_el: ^QE := Self.top;
+        begin
+            while current_el <> nil do
+            begin
+                writeln(current_el^.data);
+                current_el := current_el^.next;
+            end;
+        end;
+
     end;
 implementation
     

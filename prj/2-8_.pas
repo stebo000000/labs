@@ -1,12 +1,74 @@
 program no_game_no_life;
 
-uses btree;
+uses stack_good;
+// uses stack_bad;
+// uses queue_good;
+// uses queue_bad;
+// uses deque_good;
+// uses deque_bad;
+
+type
+    struct = Stack;
+    // struct = Queue;
+    // struct = Deque;
 
 var
     f: TextFile;
-    my_btr: BTR;
-    my_node: ^Node;
-    count_of_negative: integer;
+    my_stack: Stack;
+    // my_queue: Queue;
+    // my_deque: Deque;
+
+procedure input(st: Stack; f: TextFile);
+var buffer: real;
+begin
+    while not eof(f) do
+    begin
+        readln(f, buffer);
+        st.append(buffer);
+    end;
+end;
+
+procedure input(st: Queue; f: TextFile);
+var buffer: real;
+begin
+    while not eof(f) do
+    begin
+        readln(f, buffer);
+        st.append(buffer);
+    end;
+end;
+
+procedure input(st: Deque; f: TextFile);
+var buffer: real;
+begin
+    while not eof(f) do
+    begin
+        readln(f, buffer);
+        st.append(buffer);
+        if not eof(f) then
+        begin
+            readln(f, buffer);
+            st.insert_first(buffer);
+        end;
+    end;
+end;
+
+
+function copy_by_rule(st: struct): Stack;
+var 
+    new_st: struct;
+    buffer: real;
+begin
+    while not st.is_empty do
+    begin
+        buffer := st.pop();
+        if buffer >= 0 then 
+            new_st.append(buffer);
+    end;
+    result := new_st;
+end;
+
+end;
 
 begin
 
@@ -22,6 +84,35 @@ begin
         writeln('Невозможно открыть файл ''', Paramstr(1), ''' для чтения');
         exit;
     end;
-    
 
+    input(my_stack);
+    my_stack.scan();
+
+    my_stack.append(3);
+    my_stack.scan();
+    my_stack.pop();
+    my_stack.pop();
+    my_stack.append(2);
+    my_stack.scan();
+
+    my_stack := copy_by_rule(my_stack);
+    my_stack.scan();
+    
+    my_stack.destroy();
+
+    input(my_queue);
+    my_queue.scan();
+
+    my_queue.append(1);
+    my_queue.append(2);
+    my_queue.scan();
+
+    my_queue.pop();
+    my_queue.pop();
+    my_queue.scan();
+
+    my_queue := copy_by_rule(my_queue);
+    my_queue.scan();
+
+    my_queue.destroy()
 end.
