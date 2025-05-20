@@ -1,10 +1,11 @@
-unit btree;
+unit queue_bad;
     
 interface
 
 type
-    Stack = record
-        s, e: integer := 0;
+    Queue = record
+        s: integer := 0;
+        e: integer := 0;
         array_len: integer := 0;
         data: array of real;
 
@@ -22,25 +23,37 @@ type
                 SetLength(Self.data, 5);
                 array_len := 5;
             end;
-            if Self.e + 2 < Self.array_len then
+            if Self.e + 2 > Self.array_len then
             begin
                 SetLength(Self.data, Self.array_len + 5);
                 Self.array_len += 5;
             end;
-            Self.data[Self.len] := el;
-            inc(Self.len);
+            Self.data[Self.e] := el;
+            inc(Self.e);
         end;
 
         function pop(): real;
         begin
-            result := Self.data[Self.len];
+            result := Self.data[Self.s];
             inc(Self.s);
         end;
 
         procedure destroy();
         begin
-            while not Self.is_empty do
-                Self.pop(Self.top);
+            Self.s := 0;
+            Self.e := 0;
+            SetLength(Self.data, 5);
+            array_len := 5;
+        end;
+
+
+        procedure scan();
+        begin
+            for i: integer := Self.s to Self.e - 1 do
+            begin
+                writeln(Self.data[i]);
+            end;
+            writeln();
         end;
 
     end;

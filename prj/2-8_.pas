@@ -1,24 +1,24 @@
 program no_game_no_life;
 
-uses stack_good;
-// uses stack_bad;
+// uses stack_good;
+uses stack_bad;
 // uses queue_good;
-// uses queue_bad;
+uses queue_bad;
 // uses deque_good;
-// uses deque_bad;
+uses deque_bad;
 
 type
-    struct = Stack;
+    // struct = Stack;
     // struct = Queue;
-    // struct = Deque;
+    struct = Deque;
 
 var
     f: TextFile;
-    my_stack: Stack;
+    // my_stack: Stack;
     // my_queue: Queue;
-    // my_deque: Deque;
+    my_deque: Deque;
 
-procedure input(st: Stack; f: TextFile);
+procedure input(var st: Stack; f: TextFile);
 var buffer: real;
 begin
     while not eof(f) do
@@ -28,7 +28,7 @@ begin
     end;
 end;
 
-procedure input(st: Queue; f: TextFile);
+procedure input(var st: Queue; f: TextFile);
 var buffer: real;
 begin
     while not eof(f) do
@@ -38,7 +38,7 @@ begin
     end;
 end;
 
-procedure input(st: Deque; f: TextFile);
+procedure input(var st: Deque; f: TextFile);
 var buffer: real;
 begin
     while not eof(f) do
@@ -54,20 +54,18 @@ begin
 end;
 
 
-function copy_by_rule(st: struct): Stack;
+function copy_by_rule(st: struct): struct;
 var 
     new_st: struct;
     buffer: real;
 begin
-    while not st.is_empty do
+    while not st.is_empty() do
     begin
         buffer := st.pop();
         if buffer >= 0 then 
             new_st.append(buffer);
     end;
     result := new_st;
-end;
-
 end;
 
 begin
@@ -85,34 +83,57 @@ begin
         exit;
     end;
 
-    input(my_stack);
-    my_stack.scan();
 
-    my_stack.append(3);
-    my_stack.scan();
-    my_stack.pop();
-    my_stack.pop();
-    my_stack.append(2);
-    my_stack.scan();
+    // input(my_stack, f);
+    // my_stack.scan();
 
-    my_stack := copy_by_rule(my_stack);
-    my_stack.scan();
+    // my_stack.append(3);
+    // my_stack.scan();
+    // my_stack.pop();
+    // my_stack.pop();
+    // my_stack.append(2);
+    // my_stack.scan();
+
+    // my_stack := copy_by_rule(my_stack);
+    // my_stack.scan();
     
-    my_stack.destroy();
+    // my_stack.destroy();
 
-    input(my_queue);
-    my_queue.scan();
 
-    my_queue.append(1);
-    my_queue.append(2);
-    my_queue.scan();
+    // input(my_queue, f);
+    // my_queue.scan();
 
-    my_queue.pop();
-    my_queue.pop();
-    my_queue.scan();
+    // my_queue.append(1);
+    // my_queue.append(2);
+    // my_queue.scan();
 
-    my_queue := copy_by_rule(my_queue);
-    my_queue.scan();
+    // my_queue.pop();
+    // my_queue.pop();
+    // my_queue.scan();
 
-    my_queue.destroy()
+    // my_queue := copy_by_rule(my_queue);
+    // my_queue.scan();
+
+    // my_queue.destroy()
+
+
+    input(my_deque, f);
+    my_deque.scan();
+
+    my_deque.append(1);
+    my_deque.insert_first(2);
+    my_deque.scan();
+
+    my_deque.pop();
+    my_deque.pop();
+    my_deque.get_first();
+    my_deque.scan();
+
+    my_deque := copy_by_rule(my_deque);
+    my_deque.scan();
+
+    my_deque.destroy()
+
+
+
 end.

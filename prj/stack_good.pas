@@ -1,4 +1,4 @@
-unit btree;
+unit stack_good;
     
 interface
 
@@ -30,13 +30,14 @@ type
         begin
             el_to_delete := Self.top;
             Self.top := Self.top^.next;
+            result := el_to_delete^.data;
             dispose(el_to_delete);
         end;
 
         procedure destroy();
         begin
             while not Self.is_empty do
-                Self.pop(Self.top);
+                Self.pop();
         end;
 
         procedure scan();
@@ -47,6 +48,7 @@ type
                 writeln(current_el^.data);
                 current_el := current_el^.next;
             end;
+            writeln();
         end;
 
     end;

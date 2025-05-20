@@ -1,4 +1,4 @@
-unit btree;
+unit stack_bad;
     
 interface
 
@@ -15,7 +15,7 @@ type
 
         procedure append(el: real);
         begin
-            if Self.len + 1 < Self.array_len then
+            if Self.len + 1 > Self.array_len then
             begin
                 SetLength(Self.data, Self.array_len + 5);
                 Self.array_len += 5;
@@ -38,8 +38,18 @@ type
 
         procedure destroy();
         begin
-            while not Self.is_empty do
-                Self.pop(Self.top);
+            Self.len := 0;
+            SetLength(Self.data, 5);
+            array_len := 5;
+        end;
+
+        procedure scan();
+        begin
+            for i: integer := 0 to Self.len - 1 do
+            begin
+                writeln(Self.data[i]);
+            end;
+            writeln();
         end;
 
     end;

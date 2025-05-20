@@ -1,10 +1,11 @@
-unit btree;
+unit deque_bad;
     
 interface
 
 type
-    Stack = record
-        s, e: integer := 0;
+    Deque = record
+        s: integer := 0;
+        e: integer := 0;
         array_len: integer := 5;
         data: array of real;
 
@@ -22,13 +23,13 @@ type
                 SetLength(Self.data, 5);
                 array_len := 5;
             end;
-            if Self.e + 2 < Self.array_len then
+            if Self.e + 2 > Self.array_len then
             begin
                 SetLength(Self.data, Self.array_len + 5);
                 Self.array_len += 5;
             end;
-            Self.data[Self.len] := el;
-            inc(Self.len);
+            Self.data[Self.e] := el;
+            inc(Self.e);
         end;
 
         procedure insert_first(el: real);
@@ -40,7 +41,7 @@ type
                 SetLength(Self.data, 5);
                 array_len := 5;
             end;
-            if Self.e + 2 < Self.array_len then
+            if Self.e + 2 > Self.array_len then
             begin
                 SetLength(Self.data, Self.array_len + 5);
                 Self.array_len += 5;
@@ -51,21 +52,19 @@ type
                 Self.data[i + 1] := Self.data[i];
             end;
             Self.data[s] := el;
-            inc(Self.len);
+            inc(Self.e);
         end;
 
         function get_first(): real;
-        var el_to_delete: ^SE;
         begin
             result := Self.data[Self.s];
             inc(Self.s);
         end;
         
         function get_last(): real;
-        var el_to_delete: ^SE;
         begin
             result := Self.data[Self.e - 1];
-            dec(Self.s);
+            dec(Self.e);
         end;
 
         function pop(): real;
@@ -75,13 +74,23 @@ type
 
         procedure destroy();
         begin
-            while not Self.is_empty do
-                Self.pop(Self.top);
+            Self.s := 0;
+            Self.e := 0;
+            SetLength(Self.data, 5);
+            array_len := 5;
+        end;
+
+        procedure scan();
+        begin
+            for i: integer := Self.s to Self.e - 1 do
+            begin
+                writeln(Self.data[i]);
+            end;
+            writeln();
         end;
 
     end;
 implementation
-    
 
     
 end.

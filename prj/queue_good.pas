@@ -1,4 +1,4 @@
-unit btree;
+unit queue_good;
     
 interface
 
@@ -22,7 +22,8 @@ type
         begin
             new(new_el);
             new_el^.data := el;
-            Self.bottom^.next := new_el;
+            if Self.bottom <> nil then
+                Self.bottom^.next := new_el;
             Self.bottom := new_el;
 
             if Self.top = nil then
@@ -30,10 +31,11 @@ type
         end;
 
         function pop(): real;
-        var el_to_delete: ^SE;
+        var el_to_delete: ^QE;
         begin
             el_to_delete := Self.top;
             Self.top := Self.top^.next;
+            result := el_to_delete^.data;
             dispose(el_to_delete);
 
             if Self.top = nil then
@@ -43,7 +45,7 @@ type
         procedure destroy();
         begin
             while not Self.is_empty do
-                Self.pop(Self.top);
+                Self.pop();
         end;
 
         procedure scan();
@@ -54,6 +56,7 @@ type
                 writeln(current_el^.data);
                 current_el := current_el^.next;
             end;
+            writeln();
         end;
 
     end;
