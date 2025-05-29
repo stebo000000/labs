@@ -93,6 +93,13 @@ type
                 writeln(current_el^.data);
                 current_el := current_el^.next;
             end;
+            writeln(';');
+            current_el := Self.bottom;
+            while current_el <> nil do
+            begin
+                writeln(current_el^.data);
+                current_el := current_el^.prev;
+            end;
             writeln();
         end;
 

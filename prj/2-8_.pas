@@ -1,11 +1,11 @@
 program no_game_no_life;
 
-// uses stack_good;
-uses stack_bad;
-// uses queue_good;
-uses queue_bad;
-// uses deque_good;
-uses deque_bad;
+uses stack_good;
+// uses stack_bad;
+uses queue_good;
+// uses queue_bad;
+uses deque_good;
+// uses deque_bad;
 
 type
     // struct = Stack;
@@ -54,7 +54,7 @@ begin
 end;
 
 
-function copy_by_rule(st: struct): struct;
+function copy_by_rule(st: Stack): struct;
 var 
     new_st: struct;
     buffer: real;
@@ -64,6 +64,37 @@ begin
         buffer := st.pop();
         if buffer >= 0 then 
             new_st.append(buffer);
+    end;
+    result := new_st;
+end;
+function copy_by_rule(st: Queue): struct;
+var 
+    new_st: struct;
+    buffer: real;
+begin
+    while not st.is_empty() do
+    begin
+        buffer := st.pop();
+        if buffer >= 0 then 
+            new_st.append(buffer);
+    end;
+    result := new_st;
+end;
+function copy_by_rule(st: Deque): struct;
+var 
+    new_st: struct;
+    buffer1: real;
+    buffer2: real;
+begin
+    while not st.is_empty() do
+    begin
+        buffer1 := st.pop();
+        buffer2 := st.get_first();
+        if (buffer1 >= 0) or (buffer2 >= 0) then 
+        begin
+            new_st.append(buffer1);
+            new_st.insert_first(buffer2);
+        end;
     end;
     result := new_st;
 end;

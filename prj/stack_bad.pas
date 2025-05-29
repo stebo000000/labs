@@ -27,7 +27,7 @@ type
 
         function pop(): real;
         begin
-            result := Self.data[Self.len];
+            result := Self.data[Self.len - 1];
             if Self.len + 5 < Self.array_len then
             begin
                 SetLength(Self.data, Self.array_len - 5);

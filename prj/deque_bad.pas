@@ -86,6 +86,11 @@ type
             begin
                 writeln(Self.data[i]);
             end;
+            writeln(';');
+            for i: integer := Self.e - 1 downto Self.s do
+            begin
+                writeln(Self.data[i]);
+            end;
             writeln();
         end;
 
