@@ -1,65 +1,30 @@
-#include <iostream>
+#include <stdio.h>
 
-float findProduct(float* array, float min, float max) {
-    float prod = 1;
-    for (int i = 0; i < sizeof(array) / sizeof(array[0]); i++) {
+void findProduct(float* array, float& prod, bool& isNotNull, float min, float max, int arrL) {
+    for (int i = 0; i < arrL; i++) {
         if (array[i] >= min && array[i <= max])
         {
             prod = prod * array[i];
+            isNotNull = true;
         }
     }
 
-    return prod;
+    return;
 }
 
-int compare(float* minInArr) {
-    if (minInArr[0] == minInArr[1] && minInArr[0] == minInArr[2])
+int input(FILE* fptr, float* arr, int& arrL) {
+    fscanf(fptr, "%d", &arrL);
+    // scanf("%d", &arrLen);
+    for (int i = 0; i < arrL; i++)
     {
-        printf("all same");
-    }
-    else
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                if (minInArr[i] == minInArr[j])
-                {
-                    printf("%d, %d same", i+1, j+1);
-                }
-            
-            }
-        }
+        fscanf(fptr, "%f", &arr[i]);
+        // scanf("%f", &arr[i]);
     }
 
-    float tempMin = minInArr[0];
-    int res;
-    for (int i = 1; i < 3; i++)
-    {
-        if (tempMin > minInArr[i])
-        {
-            tempMin = minInArr[i];
-            res = i + 1;
-        }   
-    }
-    
-    return res;
+    return 0;
 }
 
-float* inputArray() {
-    int arrLen;
-    scanf("%d", &arrLen);
-    float arr[arrLen];
-    for (int i = 0; i < arrLen; i++)
-    {
-        scanf("%f", &arr[i]);
-    }
-
-    return arr;
-}
-
-float inputNum() {
-    float num;
-    scanf("%f", &num);
-    return num;
+int input(FILE* fptr, float &num) {
+    fscanf(fptr, "%f", &num);
+    return 0;
 }
