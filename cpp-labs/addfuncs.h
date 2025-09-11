@@ -1,7 +1,7 @@
 #pragma once
 
-bool findProduct(float* array, float& prod, bool& isNotNull, float min, float max, int arrL);
+void findProduct(float* array, float& prod, bool& isNull, float min, float max, int arrL);
 
-float* input(FILE* fptr, float* arr, int& arrL);
+void input(FILE* fptr, float* arr, int& arrL);
 
-float input(FILE* fptr, float& num);
+void input(FILE* fptr, float& num);

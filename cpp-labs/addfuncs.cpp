@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-void findProduct(float* array, float& prod, bool& isNotNull, float min, float max, int arrL) {
+void findProduct(float* array, float& prod, bool& isNull, float min, float max, int arrL) {
     for (int i = 0; i < arrL; i++) {
-        if (array[i] >= min && array[i <= max])
+        if (array[i] >= min && array[i] <= max)
         {
             prod = prod * array[i];
-            isNotNull = true;
+            isNull = false;
         }
     }
 
     return;
 }
 
-int input(FILE* fptr, float* arr, int& arrL) {
+void input(FILE* fptr, float* arr, int& arrL) {
     fscanf(fptr, "%d", &arrL);
     // scanf("%d", &arrLen);
     for (int i = 0; i < arrL; i++)
@@ -21,10 +21,10 @@ int input(FILE* fptr, float* arr, int& arrL) {
         // scanf("%f", &arr[i]);
     }
 
-    return 0;
+    return;
 }
 
-int input(FILE* fptr, float &num) {
+void input(FILE* fptr, float& num) {
     fscanf(fptr, "%f", &num);
-    return 0;
+    return;
 }
