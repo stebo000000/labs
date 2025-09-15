@@ -18,6 +18,7 @@ float** input(FILE* fptr) {
         
     }
     
+    printf("%d", sizeof(matrix) / sizeof(float*));
     return matrix;
 }
 
@@ -54,7 +55,7 @@ float findMean(float **matrix) {
     return positiveMean;
 }
 
-float findProduct(float **matrix) {
+float findProduct(float** matrix) {
     bool isAllZeros = true;
     float product = 1;
 
@@ -83,6 +84,16 @@ float findProduct(float **matrix) {
 }
 
 
+void freeMem(float** matrix) {
+    for (int i = 0; i < sizeof(matrix) / sizeof(float*); i++) {
+        delete[] matrix[i];
+    }
+    delete[] matrix;
+    
+    return;
+}
+
+
 void printMatrix(float** matrix) {
     for (int  i = 0; i < sizeof(matrix) / sizeof(float*); i++)
     {
@@ -93,4 +104,5 @@ void printMatrix(float** matrix) {
         printf("\n");
         
     }
+    return;
 }

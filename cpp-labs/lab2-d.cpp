@@ -54,6 +54,9 @@ int main(int argc, const char* argv[])
     {
         printf("no right mean");
     }
+
+    freeMem(matrix1);
+    freeMem(matrix2);
     
     return 0;
 }

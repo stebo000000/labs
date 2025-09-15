@@ -10,3 +10,5 @@ float findMean(float **matrix);
 float findProduct(float **matrix);
 
 void printMatrix(float** matrix);
+
+void freeMem(float** matrix);
