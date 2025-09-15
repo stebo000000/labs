@@ -43,7 +43,7 @@ void findMean(float* matrix, float& positiveMean, int& counter, const int rowLen
 
 
 float findMean(float** matrix, const int colLen, const int rowLen) {
-    float positiveMean;
+    float positiveMean = 0;
     int counter = 0;
 
     for (int  i = 0; i < colLen; i++)

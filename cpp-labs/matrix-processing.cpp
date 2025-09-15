@@ -20,7 +20,7 @@ void input(float matrix[NMAX][NMAX], int& colLen, int& rowLen, FILE* fptr) {
 
 
 float findMean(float matrix[NMAX][NMAX], const int colLen, const int rowLen) {
-    float positiveMean;
+    float positiveMean = 0;
     int counter = 0;
 
     for (int  i = 0; i < colLen; i++)

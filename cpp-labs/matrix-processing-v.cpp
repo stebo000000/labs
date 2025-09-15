@@ -39,7 +39,7 @@ void findMean(float matrix[NMAX], const int colLen, const int rowLen, float& pos
 }
 
 float findMean(float matrix[NMAX][NMAX], const int colLen, const int rowLen) {
-    float positiveMean;
+    float positiveMean = 0;
     int counter = 0;
 
     for (int  i = 0; i < colLen; i++)

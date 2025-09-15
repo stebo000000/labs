@@ -21,7 +21,7 @@ void input(float**& matrix, int& colLen, int& rowLen, FILE* fptr) {
 
 
 float findMean(float **matrix, const int colLen, const int rowLen) {
-    float positiveMean;
+    float positiveMean = 0;
     int counter = 0;
 
     for (int  i = 0; i < colLen; i++)
