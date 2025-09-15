@@ -6,7 +6,6 @@ void input(float**& matrix, int& colLen, int& rowLen, FILE* fptr) {
 
     matrix = new float*[rowLen];
 
-    
     for (int  i = 0; i < colLen; i++)
     {
         matrix[i] = new float[rowLen];

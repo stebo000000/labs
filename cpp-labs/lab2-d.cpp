@@ -12,8 +12,8 @@ int main(int argc, const char* argv[])
 
     int colLen1, colLen2, rowLen1, rowLen2;
 
-    input(matrix1, colLen1, colLen2, fptr);
-    input(matrix2, rowLen1, rowLen2, fptr);
+    input(matrix1, colLen1, rowLen1, fptr);
+    input(matrix2, colLen2, rowLen2, fptr);
 
     printMatrix(matrix1, colLen1, rowLen1);
     printMatrix(matrix2, colLen2, rowLen2);
