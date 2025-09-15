@@ -7,21 +7,16 @@ using namespace std;
 int main(int argc, char *argv[]) {
     FILE* fptr;
     fptr = fopen(argv[1], "r");
-    float arr1[10];
-    float arr2[10];
-    float arr3[10];
+    float arr1[10], arr2[10], arr3[10];
 
-    int arrL1;
-    int arrL2;
-    int arrL3;
+    int arrL1, arrL2, arrL3;
 
     input(fptr, arr1, arrL1);
     input(fptr, arr2, arrL2);
     input(fptr, arr3, arrL3);
 
-    float min;
-    float max;
-
+    float min, max;
+    
     input(fptr, min);
     input(fptr, max);
 
@@ -59,7 +54,7 @@ int main(int argc, char *argv[]) {
             {
                 printf("%d, %d same\n", 1, 3);            
             }
-            
+
             if (prodInArr1 <= prodInArr2)
             {
                 if (prodInArr3 <= prodInArr1)
