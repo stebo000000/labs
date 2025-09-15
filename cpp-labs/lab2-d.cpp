@@ -7,8 +7,8 @@ int main(int argc, const char* argv[])
     FILE* fptr;
     fptr = fopen(argv[1], "r");
 
-    float** matrix1;
-    float** matrix2;
+    float** matrix1 = nullptr;
+    float** matrix2 = nullptr;
 
     int colLen1, colLen2, rowLen1, rowLen2;
 
