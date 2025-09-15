@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int main(int argc, char *argv[]) {
+int main(int argc, char const *argv[]) {
     FILE* fptr;
     fptr = fopen(argv[1], "r");
     float arr1[10], arr2[10], arr3[10];

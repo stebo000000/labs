@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void findProduct(float* array, float& prod, bool& isNull, float min, float max, int arrL) {
+void findProduct(float* array, float& prod, bool& isNull, const float min, const float max, const int arrL) {
     for (int i = 0; i < arrL; i++) {
         if (array[i] >= min && array[i] <= max)
         {
