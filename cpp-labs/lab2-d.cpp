@@ -12,8 +12,8 @@ int main(int argc, const char* argv[])
 
     int colLen1, colLen2, rowLen1, rowLen2;
 
-    input(fptr, colLen1, colLen2);
-    input(fptr, rowLen1, rowLen2);
+    input(matrix1, colLen1, colLen2, fptr);
+    input(matrix2, rowLen1, rowLen2, fptr);
 
     printMatrix(matrix1, colLen1, rowLen1);
     printMatrix(matrix2, colLen2, rowLen2);
@@ -60,8 +60,8 @@ int main(int argc, const char* argv[])
         printf("no right mean");
     }
 
-    freeMem(matrix1, colLen1, rowLen1);
-    freeMem(matrix2, colLen2, rowLen2);
+    freeMem(matrix1, colLen1);
+    freeMem(matrix2, colLen2);
     
     return 0;
 }
