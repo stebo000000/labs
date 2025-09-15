@@ -25,7 +25,7 @@ int main(int argc, const char* argv[])
 
     float prod;
 
-    if (mean1 && mean2)
+    if (mean1 != -1 && mean2 != -1)
     {
         if (mean1 == mean2)
         {
@@ -45,12 +45,12 @@ int main(int argc, const char* argv[])
             printf("%f", prod);
         }
     }
-    else if (mean1)
+    else if (mean1 != -1)
     {
         prod = findProduct(matrix1, colLen1, rowLen1);
         printf("%f", prod);
     }
-    else if (mean2)
+    else if (mean2 != -1)
     {
         prod = findProduct(matrix2, colLen2, rowLen2);
         printf("%f", prod);
