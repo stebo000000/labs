@@ -1,12 +1,8 @@
 #include <stdio.h>
 
 
-float** input(FILE* fptr) {
-    int rowLen, colLen;
-
+void input(float** matrix, int& colLen, int& rowLen, FILE* fptr) {
     fscanf(fptr, "%d %d", &rowLen, &colLen);
-
-    float** matrix = new float* [colLen];
     
     for (int  i = 0; i < colLen; i++)
     {
@@ -18,18 +14,17 @@ float** input(FILE* fptr) {
         
     }
     
-    printf("%d", sizeof(matrix) / sizeof(float*));
-    return matrix;
+    return;
 }
 
 
-float findMean(float **matrix) {
+float findMean(float **matrix, const int colLen, const int rowLen) {
     float positiveMean;
     int counter = 0;
 
-    for (int  i = 0; i < sizeof(matrix) / sizeof(float*); i++)
+    for (int  i = 0; i < colLen; i++)
     {
-        for (int j = 0; j < sizeof(matrix[i]) / sizeof(float); j++)
+        for (int j = 0; j < rowLen; j++)
         {
             if (matrix[i][j] >= 0)
             {
@@ -55,13 +50,13 @@ float findMean(float **matrix) {
     return positiveMean;
 }
 
-float findProduct(float** matrix) {
+float findProduct(float** matrix, const int colLen, const int rowLen) {
     bool isAllZeros = true;
     float product = 1;
 
-    for (int  i = 0; i < sizeof(matrix) / sizeof(float*); i++)
+    for (int  i = 0; i < colLen; i++)
     {
-        for (int j = 0; j < sizeof(matrix[i]) / sizeof(float); j++)
+        for (int j = 0; j < rowLen; j++)
         {
             if (matrix[i][j] != 0)
             {
@@ -84,8 +79,8 @@ float findProduct(float** matrix) {
 }
 
 
-void freeMem(float** matrix) {
-    for (int i = 0; i < sizeof(matrix) / sizeof(float*); i++) {
+void freeMem(float** matrix, int& colLen, int& rowLen) {
+    for (int i = 0; i < colLen; i++) {
         delete[] matrix[i];
     }
     delete[] matrix;
@@ -94,10 +89,10 @@ void freeMem(float** matrix) {
 }
 
 
-void printMatrix(float** matrix) {
-    for (int  i = 0; i < sizeof(matrix) / sizeof(float*); i++)
+void printMatrix(float** matrix, int& colLen, int& rowLen) {
+    for (int  i = 0; i < colLen; i++)
     {
-        for (int j = 0; j < sizeof(matrix[i]) / sizeof(float); j++)
+        for (int j = 0; j < rowLen; j++)
         {
             printf("%f ", matrix[i][j]);
         }

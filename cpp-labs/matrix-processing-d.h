@@ -3,12 +3,12 @@
 #include <stdio.h>
 
 
-float** input(FILE* fptr);
+float** input(FILE* fptr, int& colLen, int& rowLen);
 
-float findMean(float **matrix);
+float findMean(float **matrix, int& colLen, int& rowLen);
 
-float findProduct(float **matrix);
+float findProduct(float **matrix, int& colLen, int& rowLen);
 
-void printMatrix(float** matrix);
+void printMatrix(float** matrix, int& colLen, int& rowLen);
 
-void freeMem(float** matrix);
+void freeMem(float** matrix, int& colLen, int& rowLen);

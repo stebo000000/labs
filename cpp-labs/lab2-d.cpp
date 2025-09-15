@@ -7,8 +7,12 @@ int main(int argc, const char* argv[])
     FILE* fptr;
     fptr = fopen(argv[1], "r");
 
-    float** matrix1 = input(fptr);
-    float** matrix2 = input(fptr);
+    float** matrix1, matrix2;
+
+    int colLen1, colLen2, rowLen1, rowLen2;
+
+    input(fptr, colLen1, colLen2);
+    input(fptr, rowLen1, rowLen2);
 
     printMatrix(matrix1);
     printMatrix(matrix2);

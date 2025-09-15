@@ -11,9 +11,7 @@ void input(float* matrix, const int rowLen, FILE* fptr) {
 }
 
 
-float** input(FILE* fptr) {
-    int rowLen, colLen;
-
+void input(float** matrix, int& colLen, int& rowLen, FILE* fptr) {
     fscanf(fptr, "%d %d", &rowLen, &colLen);
 
     float** matrix = new float* [colLen];
@@ -25,12 +23,12 @@ float** input(FILE* fptr) {
         
     }
     
-    return matrix;
+    return;
 }
 
 
-void findMean(float* matrix, float& positiveMean, int& counter) {
-        for (int j = 0; j < sizeof(matrix) / sizeof(float); j++)
+void findMean(float* matrix, float& positiveMean, int& counter, const int rowLen) {
+        for (int j = 0; j < rowLen; j++)
         {
             if (matrix[j] >= 0)
             {
@@ -44,13 +42,13 @@ void findMean(float* matrix, float& positiveMean, int& counter) {
 }
 
 
-float findMean(float** matrix) {
+float findMean(float** matrix, const int colLen, const int rowLen) {
     float positiveMean;
     int counter = 0;
 
-    for (int  i = 0; i < sizeof(matrix) / sizeof(float*); i++)
+    for (int  i = 0; i < colLen; i++)
     {
-        findMean(matrix[i], positiveMean, counter);
+        findMean(matrix[i], positiveMean, counter, rowLen);
     }
 
     // if (counter)
@@ -68,8 +66,8 @@ float findMean(float** matrix) {
 }
 
 
-void findProduct(float* matrix, float& product, bool& isAllZeros) {
-    for (int j = 0; j < sizeof(matrix) / sizeof(float); j++)
+void findProduct(float* matrix, float& product, bool& isAllZeros, const int rowLen) {
+    for (int j = 0; j < rowLen; j++)
     {
         if (matrix[j] != 0)
         {
@@ -82,13 +80,13 @@ void findProduct(float* matrix, float& product, bool& isAllZeros) {
     return;
 }
 
-float findProduct(float** matrix) {
+float findProduct(float** matrix, const int colLen, const int rowLen) {
     bool isAllZeros = true;
     float product = 1;
 
-    for (int  i = 0; i < sizeof(matrix) / sizeof(float*); i++)
+    for (int  i = 0; i < colLen; i++)
     {
-        findProduct(matrix[i], product, isAllZeros);
+        findProduct(matrix[i], product, isAllZeros, rowLen);
     }
 
     // if (isAllZeros)
@@ -102,17 +100,27 @@ float findProduct(float** matrix) {
 }
 
 
-void printMatrix(float* matrix) {
-    for (int j = 0; j < sizeof(matrix) / sizeof(float); j++)
+void freeMem(float** matrix, const int colLen) {
+    for (int i = 0; i < colLen; i++) {
+        delete[] matrix[i];
+    }
+    delete[] matrix;
+    
+    return;
+}
+
+
+void printMatrix(float* matrix, const int rowLen) {
+    for (int j = 0; j < rowLen; j++)
     {
         printf("%f ", matrix[j]);
     }
 }
 
-void printMatrix(float** matrix) {
-    for (int  i = 0; i < sizeof(matrix) / sizeof(float*); i++)
+void printMatrix(float** matrix, const int colLen, const int rowLen) {
+    for (int  i = 0; i < colLen; i++)
     {
-        printMatrix(matrix[i]);
+        printMatrix(matrix[i], rowLen);
         printf("\n");
         
     }
