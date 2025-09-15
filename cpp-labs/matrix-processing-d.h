@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 
-float** input(float** matrix, int& colLen, int& rowLen, FILE* fptr);
+float** input(float**& matrix, int& colLen, int& rowLen, FILE* fptr);
 
 float findMean(float **matrix, const int colLen, const int rowLen);
 
