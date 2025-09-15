@@ -78,3 +78,16 @@ float findProduct(float matrix[NMAX][NMAX], const int colLen, const int rowLen) 
     
     return isAllZeros ? 0 : product;
 }
+
+
+void printMatrix(float matrix[NMAX][NMAX], const int colLen, const int rowLen) {
+    for (int  i = 0; i < colLen; i++)
+    {
+        for (int j = 0; j < rowLen; j++)
+        {
+            printf("%f ", matrix[i][j]);
+        }
+        printf("\n");
+        
+    }
+}

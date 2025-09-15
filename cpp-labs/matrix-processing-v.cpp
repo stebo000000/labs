@@ -2,6 +2,7 @@
 
 #define NMAX 10
 
+
 void input(float matrix[NMAX], const int rowLen, FILE* fptr) {
     for (int j = 0; j < rowLen; j++)
     {
@@ -10,7 +11,6 @@ void input(float matrix[NMAX], const int rowLen, FILE* fptr) {
     
     return;
 }
-
 
 void input(float matrix[NMAX][NMAX], int& colLen, int& rowLen, FILE* fptr) {
     fscanf(fptr, "%d %d", &rowLen, &colLen);
@@ -37,7 +37,6 @@ void findMean(float matrix[NMAX], const int colLen, const int rowLen, float& pos
     
     return;
 }
-
 
 float findMean(float matrix[NMAX][NMAX], const int colLen, const int rowLen) {
     float positiveMean;
@@ -94,4 +93,21 @@ float findProduct(float matrix[NMAX][NMAX], const int colLen, const int rowLen) 
     // return product;
     
     return isAllZeros ? 0 : product;
+}
+
+
+void printMatrix(float matrix[NMAX], const int rowLen) {
+    for (int j = 0; j < rowLen; j++)
+    {
+        printf("%f ", matrix[j]);
+    }
+}
+
+void printMatrix(float matrix[NMAX][NMAX], const int colLen, const int rowLen) {
+    for (int  i = 0; i < colLen; i++)
+    {
+        printMatrix(matrix[i], rowLen);
+        printf("\n");
+        
+    }
 }

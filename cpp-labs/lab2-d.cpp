@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "matrix-processing-d.h"
 
-#define NMAX 10
 
 int main(int argc, const char* argv[])
 {
@@ -10,6 +9,9 @@ int main(int argc, const char* argv[])
 
     float** matrix1 = input(fptr);
     float** matrix2 = input(fptr);
+
+    printMatrix(matrix1);
+    printMatrix(matrix2);
 
     fclose(fptr);
 

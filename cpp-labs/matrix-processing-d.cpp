@@ -81,3 +81,16 @@ float findProduct(float **matrix) {
     
     return isAllZeros ? 0 : product;
 }
+
+
+void printMatrix(float** matrix) {
+    for (int  i = 0; i < sizeof(matrix) / sizeof(float*); i++)
+    {
+        for (int j = 0; j < sizeof(matrix[i]) / sizeof(float); j++)
+        {
+            printf("%f ", matrix[i][j]);
+        }
+        printf("\n");
+        
+    }
+}

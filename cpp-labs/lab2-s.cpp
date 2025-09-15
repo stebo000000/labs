@@ -13,6 +13,9 @@ int main(int argc, const char* argv[])
 
     input(matrix1, colLen1, rowLen1, fptr);
     input(matrix2, colLen2, rowLen2, fptr);
+
+    printMatrix(matrix1, colLen1, rowLen1);
+    printMatrix(matrix2, colLen2, rowLen2);
     
     fclose(fptr);
 
@@ -26,7 +29,7 @@ int main(int argc, const char* argv[])
         if (mean1 == mean2)
         {
             prod = findProduct(matrix1, colLen1, rowLen1);
-            printf("%f", prod);
+            printf("%f\n", prod);
             prod = findProduct(matrix2, colLen2, rowLen2);
             printf("%f", prod);
         }
