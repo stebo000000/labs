@@ -30,7 +30,7 @@ int main(int argc, const char* argv[])
         if (mean1 == mean2)
         {
             prod = findProduct(matrix1, colLen1, rowLen1);
-            printf("%f", prod);
+            printf("%f\n", prod);
             prod = findProduct(matrix2, colLen2, rowLen2);
             printf("%f", prod);
         }
