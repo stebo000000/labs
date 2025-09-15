@@ -2,14 +2,14 @@
 #include <stdio.h>
 #include "addfuncs.h"
 
-//1
+#define NMAX 10
 
 using namespace std;
 
 int main(int argc, char const *argv[]) {
     FILE* fptr;
     fptr = fopen(argv[1], "r");
-    float arr1[10], arr2[10], arr3[10];
+    float arr1[NMAX], arr2[NMAX], arr3[NMAX];
 
     int arrL1, arrL2, arrL3;
 
