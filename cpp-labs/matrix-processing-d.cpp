@@ -79,7 +79,7 @@ float findProduct(float** matrix, const int colLen, const int rowLen) {
 }
 
 
-void freeMem(float** matrix, int& colLen, int& rowLen) {
+void freeMem(float** matrix, const int colLen, const int rowLen) {
     for (int i = 0; i < colLen; i++) {
         delete[] matrix[i];
     }
@@ -89,7 +89,7 @@ void freeMem(float** matrix, int& colLen, int& rowLen) {
 }
 
 
-void printMatrix(float** matrix, int& colLen, int& rowLen) {
+void printMatrix(float** matrix, const int colLen, const int rowLen) {
     for (int  i = 0; i < colLen; i++)
     {
         for (int j = 0; j < rowLen; j++)
