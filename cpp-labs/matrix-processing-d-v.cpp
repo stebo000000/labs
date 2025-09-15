@@ -11,7 +11,7 @@ void input(float* matrix, const int rowLen, FILE* fptr) {
 }
 
 
-void input(float** matrix, int& colLen, int& rowLen, FILE* fptr) {
+void input(float**& matrix, int& colLen, int& rowLen, FILE* fptr) {
     fscanf(fptr, "%d %d", &rowLen, &colLen);
 
     float** matrix = new float* [colLen];
