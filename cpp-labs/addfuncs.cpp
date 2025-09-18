@@ -1,6 +1,8 @@
 #include <stdio.h>
 
-void findProduct(float* array, float& prod, bool& isNull, const float min, const float max, const int arrL) {
+#define NMAX 10
+
+void findProduct(float array[NMAX], float& prod, bool& isNull, const float min, const float max, const int arrL) {
     for (int i = 0; i < arrL; i++) {
         if (array[i] >= min && array[i] <= max)
         {
@@ -12,19 +14,30 @@ void findProduct(float* array, float& prod, bool& isNull, const float min, const
     return;
 }
 
-void input(FILE* fptr, float* arr, int& arrL) {
-    fscanf(fptr, "%d", &arrL);
-    // scanf("%d", &arrLen);
+void input(FILE* fptr, float arr[NMAX], int& arrL) {
+    do
+    {
+        scanf("%d", &arrL);
+        if (arrL <= 0)
+        {
+            printf("%d less then 0\n", arrL);
+        }
+        if (arrL > NMAX)
+        {
+            printf("%d more then %d 0\n", arrL, NMAX);
+        }
+        
+    }
+    while (arrL < 0 || arrL > NMAX);
     for (int i = 0; i < arrL; i++)
     {
         fscanf(fptr, "%f", &arr[i]);
-        // scanf("%f", &arr[i]);
     }
 
     return;
 }
 
-void input(FILE* fptr, float& num) {
-    fscanf(fptr, "%f", &num);
+void input(float& num) {
+    scanf("%f", &num);
     return;
 }

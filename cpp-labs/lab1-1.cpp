@@ -4,26 +4,70 @@
 #define NMAX 10
 
 
-int main(int argc, char const *argv[]) {
-    FILE* fptr;
+int main() {
     float arr1[NMAX], arr2[NMAX], arr3[NMAX];
-    
+
     int arrL1, arrL2, arrL3;
-    fptr = fopen(argv[1], "r");
+
+    while (arrL1 < 0 || arrL1 > NMAX)
+    {
+        scanf("%d", &arrL1);
+        if (arrL1 <= 0)
+        {
+            printf("%d less then 0\n", arrL1);
+        }
+        if (arrL1 > NMAX)
+        {
+            printf("%d more then %d\n", arrL1, NMAX);
+        }
+        
+    }
+    for (int i = 0; i < arrL1; i++)
+    {
+        scanf("%f", &arr1[i]);
+    }
+
+    while (arrL2 < 0 || arrL2 > NMAX)
+    {
+        scanf("%d", &arrL2);
+        if (arrL2 <= 0)
+        {
+            printf("%d less then 0\n", arrL2);
+        }
+        if (arrL2 > NMAX)
+        {
+            printf("%d more then %d\n", arrL2, NMAX);
+        }
+        
+    }
+    for (int i = 0; i < arrL2; i++)
+    {
+        scanf("%f", &arr2[i]);
+    }
     
-    input(fptr, arr1, arrL1);
-    fclose(fptr);
-    fptr = fopen(argv[2], "r");
-    input(fptr, arr2, arrL2);
-    fclose(fptr);
-    fptr = fopen(argv[3], "r");
-    input(fptr, arr3, arrL3);
-    fclose(fptr);
+    while (arrL3 < 0 || arrL3 > NMAX)
+    {
+        scanf("%d", &arrL3);
+        if (arrL3 <= 0)
+        {
+            printf("%d less then 0\n", arrL3);
+        }
+        if (arrL3 > NMAX)
+        {
+            printf("%d more then %d\n", arrL3, NMAX);
+        }
+        
+    }
+    for (int i = 0; i < arrL3; i++)
+    {
+        scanf("%f", &arr3[i]);
+    }
+
 
     float min, max;
     
-    input(min);
-    input(max);
+    scanf("%f", &min);
+    scanf("%f", &max);
 
     float prodInArr1 = 1;
     float prodInArr2 = 1;
@@ -33,9 +77,27 @@ int main(int argc, char const *argv[]) {
     bool isNull2 = true;
     bool isNull3 = true;
 
-    findProduct(arr1, prodInArr1, isNull1, min, max, arrL1);
-    findProduct(arr2, prodInArr2, isNull2, min, max, arrL2);
-    findProduct(arr3, prodInArr3, isNull3, min, max, arrL3);
+    for (int i = 0; i < arrL1; i++) {
+        if (arr1[i] >= min && arr1[i] <= max)
+        {
+            prodInArr1 = prodInArr1 * arr1[i];
+            isNull1 = false;
+        }
+    }
+    for (int i = 0; i < arrL2; i++) {
+        if (arr2[i] >= min && arr2[i] <= max)
+        {
+            prodInArr2 = prodInArr2 * arr2[i];
+            isNull2 = false;
+        }
+    }
+    for (int i = 0; i < arrL3; i++) {
+        if (arr3[i] >= min && arr3[i] <= max)
+        {
+            prodInArr3 = prodInArr3 * arr3[i];
+            isNull3 = false;
+        }
+    }
 
 
     if (!isNull1 && !isNull2 && !isNull3)
