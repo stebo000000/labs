@@ -13,7 +13,20 @@ void input(float matrix[NMAX], const int rowLen, FILE* fptr) {
 }
 
 void input(float matrix[NMAX][NMAX], int& colLen, int& rowLen, FILE* fptr) {
-    fscanf(fptr, "%d %d", &rowLen, &colLen);
+    do
+    {
+        scanf("%d %d", &rowLen, &colLen);
+        if (rowLen <= 0 || colLen <= 0)
+        {
+            printf("len less then 0\n");
+        }
+        if (rowLen > NMAX || colLen > NMAX)
+        {
+            printf("len more then %d 0\n", NMAX);
+        }
+        
+    }
+    while (rowLen <= 0 || colLen <= 0 || rowLen > NMAX || colLen > NMAX);
     
     for (int  i = 0; i < colLen; i++)
     {

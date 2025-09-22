@@ -5,20 +5,23 @@
 int main(int argc, const char* argv[])
 {
     FILE* fptr;
-    fptr = fopen(argv[1], "r");
-
+    
     float** matrix1;
     float** matrix2;
-
+    
     int colLen1, colLen2, rowLen1, rowLen2;
-
+    
+    fptr = fopen(argv[1], "r");
     input(matrix1, colLen1, rowLen1, fptr);
+    fclose(fptr);
+    
+    fptr = fopen(argv[2], "r");
     input(matrix2, colLen2, rowLen2, fptr);
+    fclose(fptr);
 
     printMatrix(matrix1, colLen1, rowLen1);
     printMatrix(matrix2, colLen2, rowLen2);
 
-    fclose(fptr);
 
     float mean1 = findMean(matrix1, colLen1, rowLen1);
     float mean2 = findMean(matrix2, colLen2, rowLen2);

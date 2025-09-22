@@ -9,13 +9,15 @@ int main(int argc, char const *argv[]) {
     float arr1[NMAX], arr2[NMAX], arr3[NMAX];
     
     int arrL1, arrL2, arrL3;
-    fptr = fopen(argv[1], "r");
     
+    fptr = fopen(argv[1], "r");
     input(fptr, arr1, arrL1);
     fclose(fptr);
+
     fptr = fopen(argv[2], "r");
     input(fptr, arr2, arrL2);
     fclose(fptr);
+    
     fptr = fopen(argv[3], "r");
     input(fptr, arr3, arrL3);
     fclose(fptr);
@@ -24,6 +26,11 @@ int main(int argc, char const *argv[]) {
     
     input(min);
     input(max);
+
+    if (min > max)
+    {
+        printf("min more then max");
+    }
 
     float prodInArr1 = 1;
     float prodInArr2 = 1;

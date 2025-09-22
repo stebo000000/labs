@@ -2,7 +2,15 @@
 
 
 void input(float**& matrix, int& colLen, int& rowLen, FILE* fptr) {
-    fscanf(fptr, "%d %d", &rowLen, &colLen);
+    do
+    {
+        scanf("%d %d", &rowLen, &colLen);
+        if (rowLen <= 0 || colLen <= 0)
+        {
+            printf("len less then 0\n");
+        }        
+    }
+    while (rowLen <= 0 || colLen <= 0);
 
     matrix = new float*[rowLen];
 

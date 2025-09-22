@@ -9,7 +9,7 @@ int main() {
 
     int arrL1, arrL2, arrL3;
 
-    while (arrL1 < 0 || arrL1 > NMAX)
+    do
     {
         scanf("%d", &arrL1);
         if (arrL1 <= 0)
@@ -22,12 +22,14 @@ int main() {
         }
         
     }
+    while (arrL1 < 0 || arrL1 > NMAX);
+
     for (int i = 0; i < arrL1; i++)
     {
         scanf("%f", &arr1[i]);
     }
 
-    while (arrL2 < 0 || arrL2 > NMAX)
+    do
     {
         scanf("%d", &arrL2);
         if (arrL2 <= 0)
@@ -40,12 +42,13 @@ int main() {
         }
         
     }
+    while (arrL2 < 0 || arrL2 > NMAX);
+
     for (int i = 0; i < arrL2; i++)
     {
         scanf("%f", &arr2[i]);
     }
-    
-    while (arrL3 < 0 || arrL3 > NMAX)
+    do
     {
         scanf("%d", &arrL3);
         if (arrL3 <= 0)
@@ -58,6 +61,8 @@ int main() {
         }
         
     }
+    while (arrL3 < 0 || arrL3 > NMAX);
+
     for (int i = 0; i < arrL3; i++)
     {
         scanf("%f", &arr3[i]);
@@ -68,6 +73,12 @@ int main() {
     
     scanf("%f", &min);
     scanf("%f", &max);
+
+    if (min > max)
+    {
+        printf("min more then max");
+    }
+    
 
     float prodInArr1 = 1;
     float prodInArr2 = 1;
