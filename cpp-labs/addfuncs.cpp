@@ -2,7 +2,7 @@
 
 #define NMAX 10
 
-void findProduct(float array[NMAX], float& prod, bool& isNull, const float min, const float max, const int arrL) {
+void findProduct(float array[], float& prod, bool& isNull, float min, float max, int arrL) {
     for (int i = 0; i < arrL; i++) {
         if (array[i] >= min && array[i] <= max)
         {
@@ -14,7 +14,7 @@ void findProduct(float array[NMAX], float& prod, bool& isNull, const float min, 
     return;
 }
 
-void input(FILE* fptr, float arr[NMAX], int& arrL) {
+void input(FILE* fptr, float arr[], int& arrL) {
     do
     {
         scanf("%d", &arrL);
@@ -39,5 +39,14 @@ void input(FILE* fptr, float arr[NMAX], int& arrL) {
 
 void input(float& num) {
     scanf("%f", &num);
+    return;
+}
+
+void printArray(float arr[], int arrLen) {
+    for (int i = 0; i < arrLen; i++)
+    {
+        printf("%f ", arr[i]);
+    }
+    printf("\n");
     return;
 }

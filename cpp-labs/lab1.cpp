@@ -27,6 +27,10 @@ int main(int argc, char const *argv[]) {
     input(min);
     input(max);
 
+    printArray(arr1, arrL1);
+    printArray(arr2, arrL2);
+    printArray(arr3, arrL3);
+
     if (min > max)
     {
         printf("min more then max");

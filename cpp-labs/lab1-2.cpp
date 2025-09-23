@@ -14,7 +14,7 @@ void findProduct(float array[NMAX], float& prod, bool& isNull, const float min, 
     return;
 }
 
-void input(FILE* fptr, float arr[NMAX], int& arrL) {
+void input(FILE* fptr, float arr[], int& arrL) {
     do    
     {
         scanf("%d", &arrL);

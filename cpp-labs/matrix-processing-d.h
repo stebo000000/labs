@@ -5,10 +5,10 @@
 
 float** input(float**& matrix, int& colLen, int& rowLen, FILE* fptr);
 
-float findMean(float **matrix, const int colLen, const int rowLen);
+float findMean(float **matrix, int colLen, int rowLen);
 
-float findProduct(float **matrix, const int colLen, const int rowLen);
+float findProduct(float **matrix, int colLen, int rowLen);
 
-void printMatrix(float** matrix, const int colLen, const int rowLen);
+void printMatrix(float** matrix, int colLen, int rowLen);
 
-void freeMem(float** matrix, const int colLen);
+void freeMem(float**& matrix, int colLen);

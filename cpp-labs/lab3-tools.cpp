@@ -45,8 +45,12 @@ void printBinFile(FILE* fptr) {
 
     while (!feof(fptr))
     {
-        fread(&buffer, sizeof(float), 1, fptr);
-        printf("%f ", buffer);
+        for (int i = 0; i < 5; i++)
+        {
+            fread(&buffer, sizeof(float), 1, fptr);
+            printf("%f ", buffer);
+        }
+        printf("\n");
     }
     printf("\n");
     return;

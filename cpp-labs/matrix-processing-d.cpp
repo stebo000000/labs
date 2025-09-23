@@ -28,7 +28,7 @@ void input(float**& matrix, int& colLen, int& rowLen, FILE* fptr) {
 }
 
 
-float findMean(float **matrix, const int colLen, const int rowLen) {
+float findMean(float **matrix, int colLen, int rowLen) {
     float positiveMean = 0;
     int counter = 0;
 
@@ -60,7 +60,7 @@ float findMean(float **matrix, const int colLen, const int rowLen) {
     return positiveMean;
 }
 
-float findProduct(float** matrix, const int colLen, const int rowLen) {
+float findProduct(float** matrix, int colLen, int rowLen) {
     bool isAllZeros = true;
     float product = 1;
 
@@ -89,7 +89,7 @@ float findProduct(float** matrix, const int colLen, const int rowLen) {
 }
 
 
-void freeMem(float** matrix, const int colLen) {
+void freeMem(float**& matrix, int colLen) {
     for (int i = 0; i < colLen; i++) {
         delete[] matrix[i];
     }
@@ -99,7 +99,7 @@ void freeMem(float** matrix, const int colLen) {
 }
 
 
-void printMatrix(float** matrix, const int colLen, const int rowLen) {
+void printMatrix(float** matrix, int colLen, int rowLen) {
     for (int  i = 0; i < colLen; i++)
     {
         for (int j = 0; j < rowLen; j++)
@@ -109,5 +109,6 @@ void printMatrix(float** matrix, const int colLen, const int rowLen) {
         printf("\n");
         
     }
+    printf("\n");
     return;
 }

@@ -1,29 +1,21 @@
 #include <stdio.h>
-
-#define NMAX 10
-
-
-void findProduct(float array[], float& prod, bool& isNull, float min, float max, int arrL);
-
-void input(FILE* fptr, float arr[], int& arrL);
-
-void input(float& num);
+#include "lab1-tools-d.h"
 
 
 int main(int argc, char const *argv[]) {
     FILE* fptr;
-    float arr1[NMAX], arr2[NMAX], arr3[NMAX];
+    float *arr1, *arr2, *arr3;
     
     int arrL1, arrL2, arrL3;
     
     fptr = fopen(argv[1], "r");
     input(fptr, arr1, arrL1);
     fclose(fptr);
-    
+
     fptr = fopen(argv[2], "r");
     input(fptr, arr2, arrL2);
     fclose(fptr);
-
+    
     fptr = fopen(argv[3], "r");
     input(fptr, arr3, arrL3);
     fclose(fptr);
@@ -33,10 +25,32 @@ int main(int argc, char const *argv[]) {
     input(min);
     input(max);
 
+    printArray(arr1, arrL1);
+    printArray(arr2, arrL2);
+    printArray(arr3, arrL3);
+
     if (min > max)
     {
         printf("min more then max");
     }
+
+    printf("\n");
+    if (isInRange(arr1, arrL1, min, max))
+    {
+        sort(arr1, arrL1);
+        printArray(arr1, arrL1);
+    }
+    if (isInRange(arr2, arrL2, min, max))
+    {
+        sort(arr2, arrL2);
+        printArray(arr2, arrL2);
+    }
+    if (isInRange(arr3, arrL3, min, max))
+    {
+        sort(arr3, arrL3);
+        printArray(arr3, arrL3);
+    }
+    
 
     float prodInArr1 = 1;
     float prodInArr2 = 1;
@@ -161,48 +175,9 @@ int main(int argc, char const *argv[]) {
         printf("all array are empty\n");
     }
 
+    freeMem(arr1);
+    freeMem(arr2);
+    freeMem(arr3);
+
     return 0;
-}
-
-
-
-void findProduct(float array[], float& prod, bool& isNull, float min, float max, int arrL) {
-    for (int i = 0; i < arrL; i++) {
-        if (array[i] >= min && array[i] <= max)
-        {
-            prod = prod * array[i];
-            isNull = false;
-        }
-    }
-
-    return;
-}
-
-void input(FILE* fptr, float arr[], int& arrL) {
-    do
-    {
-        scanf("%d", &arrL);
-        if (arrL <= 0)
-        {
-            printf("%d less then 0\n", arrL);
-        }
-        if (arrL > NMAX)
-        {
-            printf("%d more then %d 0\n", arrL, NMAX);
-        }
-        
-    }
-    while (arrL < 0 || arrL > NMAX);
-    for (int i = 0; i < arrL; i++)
-    {
-        fscanf(fptr, "%f", &arr[i]);
-    }
-
-    return;
-}
-
-
-void input(float& num) {
-    scanf("%f", &num);
-    return;
 }
