@@ -12,18 +12,18 @@ void copyToBin(const char* fileName, const char* binFileName) {
     fptr1 = fopen(fileName, "r");
     fptr2 = fopen(binFileName, "wb");
 
-    do
+    while (!feof(fptr1))
     {
         wasRead = fscanf(fptr1, "%f %f %f %f %f", &buffer[0], &buffer[1], &buffer[2], &buffer[3], &buffer[4]);
-        printf("%f %f %f %f %f", buffer[0], buffer[1], buffer[2], buffer[3], buffer[4]);
-        printf("\n");
         if ( wasRead == 5)
         {
             fwrite(buffer, sizeof(float), SEQ_LEN, fptr2);
-            
+        }
+        else
+        {
+            while (fgetc(fptr1) != (int)'\n');
         }
     }
-    while (!feof(fptr1));
 
     fclose(fptr1);
     fclose(fptr2);
@@ -53,14 +53,15 @@ void printBinFile(FILE* fptr) {
 
     float buffer;
 
-    while (!feof(fptr))
+    int i = 0;
+    while (fread(&buffer, sizeof(float), 1, fptr) != 0)
     {
-        for (int i = 0; i < SEQ_LEN; i++)
+        if (!(i % 5))
         {
-            fread(&buffer, sizeof(float), 1, fptr);
-            printf("%f ", buffer);
+            printf("\n");
         }
-        printf("\n");
+        printf("%f ", buffer);
+        i++;
     }
     printf("\n");
     return;
