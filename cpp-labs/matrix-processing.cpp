@@ -35,7 +35,7 @@ void input(float matrix[][NMAX], int& colLen, int& rowLen, FILE* fptr) {
 float findMean(float matrix[][NMAX], int colLen, int rowLen) {
     float positiveMean = 0;
     int counter = 0;
-
+    
     for (int i = 0; i < colLen; i++)
     {
         for (int j = 0; j < rowLen; j++)
@@ -64,12 +64,12 @@ float findMean(float matrix[][NMAX], int colLen, int rowLen) {
     return positiveMean;
 }
 
-float findProduct(float matrix[][NMAX], int colLen, int rowLen) {
-    bool isAllZeros = true;
-    float product = 1;
-
+void findProduct(float matrix[][NMAX], int colLen, int rowLen, float results[]) {
+    
     for (int  i = 0; i < colLen; i++)
     {
+        bool isAllZeros = true;
+        float product = 1;
         for (int j = 0; j < rowLen; j++)
         {
             if (matrix[i][j] != 0)
@@ -79,19 +79,26 @@ float findProduct(float matrix[][NMAX], int colLen, int rowLen) {
             }
             
         }
-        
+        results[i] = isAllZeros ? 0 : product;
     }
-
-    // if (isAllZeros)
-    // {
-    //     product = 0;
-    // }
-
-    // return product;
-    
-    return isAllZeros ? 0 : product;
+    return;
 }
 
+void print(float arr[], int colLen) {
+    for (int i = 0; i < colLen; i++)
+    {
+        if (!arr[i])
+        {
+            printf("%d: all zeros in row\n", i);
+        }
+        else
+        {
+            printf("%d: %f\n", i, arr[i]);
+        }
+    }
+    
+    return;
+}
 
 void printMatrix(float matrix[][NMAX], int colLen, int rowLen) {
     for (int  i = 0; i < colLen; i++)

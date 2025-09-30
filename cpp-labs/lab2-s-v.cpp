@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "matrix-processing.h"
+#include "matrix-processing-v.h"
 
 #define NMAX 10
 
@@ -26,39 +26,31 @@ int main(int argc, const char* argv[])
     float mean2 = findMean(matrix2, colLen2, rowLen2);
 
     float prod;
-    float results1[colLen1];
-    float results2[colLen2];
 
 
     if (mean1 != -1 && mean2 != -1)
     {
         if (mean1 == mean2)
         {
-            findProduct(matrix1, colLen1, rowLen1, results1);
-            print(results1, colLen1);
-            findProduct(matrix2, colLen2, rowLen2, results2);
-            print(results2, colLen2);
+            findProduct(matrix1, colLen1, rowLen1);
+            findProduct(matrix2, colLen2, rowLen2);
         }
         else if (mean1 < mean2)
         {
-            findProduct(matrix1, colLen1, rowLen1, results1);
-            print(results1, colLen1);
+            findProduct(matrix1, colLen1, rowLen1);
         }
         else
         {
-            findProduct(matrix2, colLen2, rowLen2, results2);
-            print(results2, colLen2);
+            findProduct(matrix2, colLen2, rowLen2);
         }
     }
     else if (mean1 != -1)
     {
-        findProduct(matrix1, colLen1, rowLen1, results1);
-        print(results1, colLen1);
+        findProduct(matrix1, colLen1, rowLen1);
     }
     else if (mean2 != -1)
     {
-        findProduct(matrix2, colLen2, rowLen2, results2);
-        print(results2, colLen2);
+        findProduct(matrix2, colLen2, rowLen2);
     }
     else
     {

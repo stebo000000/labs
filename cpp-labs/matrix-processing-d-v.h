@@ -7,11 +7,9 @@ float** input(float**& matrix, int& colLen, int& rowLen, FILE* fptr);
 
 float findMean(float **matrix, int colLen, int rowLen);
 
-void findProduct(float **matrix, int colLen, int rowLen, float*& result);
+void findProduct(float **matrix, int colLen, int rowLen);
 
 void printMatrix(float** matrix, int colLen, int rowLen);
-
-void print(float* arr, int colLen);
 
 void freeMem(float**& matrix, int colLen);
 

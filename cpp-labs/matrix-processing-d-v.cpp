@@ -88,23 +88,23 @@ void findProduct(float* matrix, float& product, bool& isAllZeros, int rowLen) {
     return;
 }
 
-float findProduct(float** matrix, int colLen, int rowLen) {
-    bool isAllZeros = true;
-    float product = 1;
-
+void findProduct(float** matrix, int colLen, int rowLen) {
+    
     for (int  i = 0; i < colLen; i++)
     {
+        bool isAllZeros = true;
+        float product = 1;
         findProduct(matrix[i], product, isAllZeros, rowLen);
+        if (isAllZeros)
+        {
+            printf("%d: all zeros in row\n", i);
+        }
+        else
+        {
+            printf("%d: %f\n", i, product);
+        }
     }
-
-    // if (isAllZeros)
-    // {
-    //     product = 0;
-    // }
-
-    // return product;
-    
-    return isAllZeros ? 0 : product;
+    return;
 }
 
 

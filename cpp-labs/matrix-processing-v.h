@@ -9,8 +9,6 @@ void input(float matrix[][NMAX], int& colLen, int& rowLen, FILE* fptr);
 
 float findMean(float matrix[][NMAX], int colLen, int rowLen);
 
-void findProduct(float matrix[][NMAX], int colLen, int rowLen, float results[]);
+void findProduct(float matrix[][NMAX], int colLen, int rowLen);
 
 void printMatrix(float matrix[][NMAX], int colLen, int rowLen);
-
-void print(float arr[], int colLen);

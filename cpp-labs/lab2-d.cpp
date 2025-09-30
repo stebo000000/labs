@@ -28,35 +28,42 @@ int main(int argc, const char* argv[])
 
     float prod;
 
+    float* result1 = new float[colLen1];
+    float* result2 = new float[colLen2];
+
     if (mean1 != -1 && mean2 != -1)
     {
         if (mean1 == mean2)
         {
-            prod = findProduct(matrix1, colLen1, rowLen1);
-            printf("%f\n", prod);
-            prod = findProduct(matrix2, colLen2, rowLen2);
-            printf("%f", prod);
+            findProduct(matrix1, colLen1, rowLen1, result1);
+            print(result1, colLen1);
+            findProduct(matrix2, colLen2, rowLen2, result2);
+            print(result2, colLen2);
         }
         else if (mean1 < mean2)
         {
-            prod = findProduct(matrix1, colLen1, rowLen1);
-            printf("%f", prod);
+            findProduct(matrix1, colLen1, rowLen1, result1);
+            print(result1, colLen1);
+            
         }
         else
         {
-            prod = findProduct(matrix2, colLen2, rowLen2);
-            printf("%f", prod);
+            findProduct(matrix2, colLen2, rowLen2, result2);
+            print(result2, colLen2);
+            
         }
     }
     else if (mean1 != -1)
     {
-        prod = findProduct(matrix1, colLen1, rowLen1);
-        printf("%f", prod);
+        findProduct(matrix1, colLen1, rowLen1, result1);
+        print(result1, colLen1);
+        
     }
     else if (mean2 != -1)
     {
-        prod = findProduct(matrix2, colLen2, rowLen2);
-        printf("%f", prod);
+        findProduct(matrix2, colLen2, rowLen2, result2);
+        print(result2, colLen2);
+        
     }
     else
     {
@@ -65,6 +72,8 @@ int main(int argc, const char* argv[])
 
     freeMem(matrix1, colLen1);
     freeMem(matrix2, colLen2);
+    freeMem(result1);
+    freeMem(result2);
     
     return 0;
 }

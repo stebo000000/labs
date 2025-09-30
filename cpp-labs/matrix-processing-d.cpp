@@ -60,12 +60,12 @@ float findMean(float **matrix, int colLen, int rowLen) {
     return positiveMean;
 }
 
-float findProduct(float** matrix, int colLen, int rowLen) {
-    bool isAllZeros = true;
-    float product = 1;
-
+void findProduct(float** matrix, int colLen, int rowLen, float*& result) {
+    
     for (int  i = 0; i < colLen; i++)
     {
+        bool isAllZeros = true;
+        float product = 1;
         for (int j = 0; j < rowLen; j++)
         {
             if (matrix[i][j] != 0)
@@ -75,17 +75,9 @@ float findProduct(float** matrix, int colLen, int rowLen) {
             }
             
         }
-        
-    }
-
-    // if (isAllZeros)
-    // {
-    //     product = 0;
-    // }
-
-    // return product;
-    
-    return isAllZeros ? 0 : product;
+        result[i] = isAllZeros ? 0 : product;
+    }    
+    return;
 }
 
 
@@ -94,6 +86,28 @@ void freeMem(float**& matrix, int colLen) {
         delete[] matrix[i];
     }
     delete[] matrix;
+    
+    return;
+}
+
+void freeMem(float*& arr) {
+    delete[] arr;
+    
+    return;
+}
+
+void print(float* arr, int colLen) {
+    for (int i = 0; i < colLen; i++)
+    {
+        if (!arr[i])
+        {
+            printf("%d: all zeros in row\n", i);
+        }
+        else
+        {
+            printf("%d: %f\n", i, arr[i]);
+        }
+    }
     
     return;
 }
