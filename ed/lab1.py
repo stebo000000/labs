@@ -54,7 +54,7 @@ def md5(string: str, n: int):
 def main():
     n = int(input("enter \"n\": "))
 
-    f1 = open(rf"D:\labs\ed\sets.txt", "r")
+    f1 = open(r"D:\labs\ed\sets.txt", "r")
     f2 = open("output.txt", "w")
     strings_list = f1.read().strip().split()
     f2.write("key       multiplicative byte_sdvig md5 \n")
