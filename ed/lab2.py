@@ -1,6 +1,7 @@
-def read_file(name: str):
-    with open(name, 'r') as f:
-        s = f.read().split()
+def input_array(name: str):
+    f = open(name, 'r')
+    s = f.read().split()
+    f.close()
 
     n = len(s)
     arr = [0.0] * n
@@ -19,10 +20,11 @@ def find_min(arr: list[float]):
 
 
 def main():
-    arr = read_file(name=rf"D:\labs\ed\lab2.txt")
+    arr = input_array(name=r"D:\labs\ed\lab2.txt")
 
-    with open("lab2out.txt", "w") as f:
-        f.write(str(find_min(arr)))
+    f = open("lab2out.txt", "w")
+    f.write(str(find_min(arr)))
+    f.close()
 
 
 main()
