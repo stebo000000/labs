@@ -1,5 +1,3 @@
-Rem Attribute VBA_ModuleType=VBADocumentModule
-Option VBASupport 1
 Public Function fill_array(rng As Range) As Variant
     Dim arr() As Variant
     Dim cols As Integer
@@ -25,7 +23,7 @@ Public Function find_min(arr As Variant) As Double
     Dim i As Integer
     Dim min_num As Double
     
-    min_num = arr(0)
+    min_num = arr(1)
 
     For i = LBound(arr) + 1 To UBound(arr)
         If arr(i) < min_num Then min_num = arr(i)

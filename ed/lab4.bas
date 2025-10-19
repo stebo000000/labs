@@ -1,11 +1,11 @@
 Option Explicit
 
-' Инициализация пустого списка
+
 Function init() As Variant
     init = Array()
 End Function
 
-' Проверка: список пуст?
+
 Function is_empty(lst As Variant) As Boolean
     is_empty = (UBound(lst) < LBound(lst))
 End Function
@@ -214,25 +214,6 @@ Sub read_list(ByRef lst As Variant, rng As Range)
 End Sub
 
 
-Sub output_list(lst As Variant, startCell As Range)
-    Dim ws As Worksheet: Set ws = startCell.Worksheet
-    Dim i As Long: i = 0
-    Dim rowOffset As Long: rowOffset = 0
-
-    ws.Range(startCell, startCell.Offset(1000, 1)).ClearContents
-
-    startCell.Offset(-1, 0).Value = "Значение"
-    startCell.Offset(-1, 1).Value = "Индекс"
-
-    Do While i <> -1 And i <= UBound(lst)
-        startCell.Offset(rowOffset, 0).Value = get_current(lst, i)
-        startCell.Offset(rowOffset, 1).Value = i
-        i = next_el(lst, i)
-        rowOffset = rowOffset + 1
-    Loop
-End Sub
-
-
 Sub main()
     Dim rng As Range
     Dim lst As Variant
@@ -251,12 +232,13 @@ Sub main()
     read_list lst, rng
 
     Set outputCell = rng.Worksheet.Range("A5")
-    output_list lst, outputCell
 
-    ' Вывод статистики
+    outputCell.Offset(i + 1, 0).Value = "кол-во букв"
+    outputCell.Offset(i + 1, 1).Value = "кол-во в списке"
+
     For i = 1 To 9
-        outputCell.Offset(i + 20, 0).Value = i & ":"
-        outputCell.Offset(i + 20, 1).Value = count(lst, i)
+        outputCell.Offset(i + 2, 0).Value = i
+        outputCell.Offset(i + 2, 1).Value = count(lst, i)
     Next i
 End Sub
 

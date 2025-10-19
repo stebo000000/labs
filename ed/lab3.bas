@@ -1,5 +1,3 @@
-Rem Attribute VBA_ModuleType=VBADocumentModule
-Option VBASupport 1
 Function input_matrix(rng As Range, n, m) As Variant
     Dim A() As Variant
     Dim i As Integer, j As Integer
@@ -77,7 +75,7 @@ Sub main_program()
         matrix = input_matrix(rng, n, m)
         
         If has_bigger(matrix, n, m, num) Then
-            task matrix, n, m, num
+            prod_with_condition matrix, n, m, num
             
             Set outputRng = rng.Offset(0, m + 1)
             
