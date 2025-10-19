@@ -47,7 +47,7 @@ Sub prod_with_condition(ByRef A As Variant, n As Integer, m As Integer, num As D
     Dim i As Integer, j As Integer
     For i = 1 To n
         For j = 1 To m
-            If (i, j) < num Then
+            If A(i, j) < num Then
                 A(i, j) = A(i, j) * num
             End If
         Next j
@@ -61,7 +61,6 @@ Sub main_program()
     Dim num As Double
     Dim n As Integer, m As Integer
     Dim outputRng As Range
-    Dim outputCell As Range
     
     On Error Resume Next
     Set rng = Application.InputBox("Введите диапазон матрицы: ", Type:=8)
