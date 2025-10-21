@@ -2,39 +2,58 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
+
+void readNum(FILE* fptr, char temp[], int& wasRead, char& chr) {
+    bool stopWasRead = false;
+
+    while (!isdigit(chr) && chr != '-' && !feof(fptr) && chr != '\n')
+        {
+            chr = fgetc(fptr);
+        }
+        
+
+        while ((isdigit(chr) || chr == '.') && !feof(fptr) && chr != '\n' && !stopWasRead)
+        {
+            if (chr = '.')
+            {
+                stopWasRead = true;
+            }
+            
+            temp[wasRead++] = chr;
+            chr = fgetc(fptr);
+        }
+        return;
+}
 
 void copyToBin(const char* fileName, const char* binFileName) {
     FILE* fptr1;
     FILE* fptr2;
     float buffer[SEQ_LEN];
-    char temp;
+    char temp[256];
+    char chr = 'o';
+    
 
-    int wasRead, c;
+    int wasRead, counter;
 
     fptr1 = fopen(fileName, "r");
     fptr2 = fopen(binFileName, "wb");
 
     while (!feof(fptr1))
     {
-        c = 0;
-        do
+        while (chr != '\n' && counter < 5)
         {
-            temp = fgetc(fptr1);
-            if (isdigit(temp)) {
-                buffer[c] = temp - '0';
+            wasRead = 0;
+            chr = 'o';
+            readNum(fptr1, temp, wasRead, chr);
+            if (wasRead != 0)
+            {
+                buffer[counter++] = atof(temp);
             }
-
-        } while (temp != (int)'\n' && c < 6);
-        
-        
-        wasRead = fscanf(fptr1, "%f %f %f %f %f", &buffer[0], &buffer[1], &buffer[2], &buffer[3], &buffer[4]);
-        if ( wasRead == 5)
+        }
+        if (counter == 5)
         {
             fwrite(buffer, sizeof(float), SEQ_LEN, fptr2);
-        }
-        else
-        {
-            while (fgetc(fptr1) != (int)'\n');
         }
     }
 
