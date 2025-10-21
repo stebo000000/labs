@@ -16,3 +16,7 @@ void print(float* arr, int colLen);
 void freeMem(float**& matrix, int colLen);
 
 void freeMem(float*& arr);
+
+bool isValidToTask(float** matrix, int colLen, int rowLen);
+
+void addTask(float** matrix, int colLen, int rowLen);

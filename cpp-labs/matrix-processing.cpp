@@ -113,3 +113,41 @@ void printMatrix(float matrix[][NMAX], int colLen, int rowLen) {
     printf("\n");
     return;
 }
+
+bool isValidToTask(float matrix[][NMAX], int colLen, int rowLen) {
+    bool isValid = true;
+    int i, j;
+
+    i = 0;
+    while (isValid && i < colLen)
+    {
+        j = 0;
+        while (isValid && j < rowLen)
+        {
+            if (matrix[i][j] == 0)
+            {
+                isValid = false;
+            }
+            else
+            {
+                j++;
+            }
+        }
+        i++;
+    }
+    
+    return isValid;
+}
+
+void addTask(float matrix[][NMAX], int colLen, int rowLen) {
+    for (int i = 0; i < colLen / 2; i++)
+    {
+        for (int j = 0; j < rowLen / 2; j++)
+        {
+            matrix[colLen - i - 1][rowLen - j - 1] = matrix[colLen - i - 1][rowLen - j - 1] / matrix[i][j];
+        }
+        
+    }
+    
+    return;
+}

@@ -1,13 +1,14 @@
 #include <stdio.h>
-#include "matrix-processing.h"
+#include "matrix-processing-d-v.h"
 
-#define NMAX 10
 
 int main(int argc, const char* argv[])
 {
     FILE* fptr;
     
-    float matrix1[NMAX][NMAX], matrix2[NMAX][NMAX];
+    float** matrix1;
+    float** matrix2;
+    
     int colLen1, colLen2, rowLen1, rowLen2;
     
     fptr = fopen(argv[1], "r");
@@ -20,45 +21,40 @@ int main(int argc, const char* argv[])
 
     printMatrix(matrix1, colLen1, rowLen1);
     printMatrix(matrix2, colLen2, rowLen2);
-    
+
 
     float mean1 = findMean(matrix1, colLen1, rowLen1);
     float mean2 = findMean(matrix2, colLen2, rowLen2);
 
     float prod;
-    float results1[colLen1];
-    float results2[colLen2];
-
 
     if (mean1 != -1 && mean2 != -1)
     {
         if (mean1 == mean2)
         {
-            findProduct(matrix1, colLen1, rowLen1, results1);
-            print(results1, colLen1);
-            findProduct(matrix2, colLen2, rowLen2, results2);
-            print(results2, colLen2);
+            findProduct(matrix1, colLen1, rowLen1);
+            findProduct(matrix2, colLen2, rowLen2);
         }
         else if (mean1 < mean2)
         {
-            findProduct(matrix1, colLen1, rowLen1, results1);
-            print(results1, colLen1);
+            findProduct(matrix1, colLen1, rowLen1);
+            
         }
         else
         {
-            findProduct(matrix2, colLen2, rowLen2, results2);
-            print(results2, colLen2);
+            findProduct(matrix2, colLen2, rowLen2);
+            
         }
     }
     else if (mean1 != -1)
     {
-        findProduct(matrix1, colLen1, rowLen1, results1);
-        print(results1, colLen1);
+        findProduct(matrix1, colLen1, rowLen1);
+        
     }
     else if (mean2 != -1)
     {
-        findProduct(matrix2, colLen2, rowLen2, results2);
-        print(results2, colLen2);
+        findProduct(matrix2, colLen2, rowLen2);
+        
     }
     else
     {
@@ -75,8 +71,12 @@ int main(int argc, const char* argv[])
         addTask(matrix2, colLen2, rowLen2);
     }
 
+    
     printMatrix(matrix1, colLen1, rowLen1);
     printMatrix(matrix2, colLen2, rowLen2);
+
+    freeMem(matrix1, colLen1);
+    freeMem(matrix2, colLen2);
     
     return 0;
 }

@@ -70,6 +70,20 @@ int main(int argc, const char* argv[])
         printf("no right mean");
     }
 
+    if (isValidToTask(matrix1, colLen1, rowLen1))
+    {
+        addTask(matrix1, colLen1, rowLen1);
+    }
+
+    if (isValidToTask(matrix2, colLen2, rowLen2))
+    {
+        addTask(matrix2, colLen2, rowLen2);
+    }
+
+    
+    printMatrix(matrix1, colLen1, rowLen1);
+    printMatrix(matrix2, colLen2, rowLen2);
+
     freeMem(matrix1, colLen1);
     freeMem(matrix2, colLen2);
     freeMem(result1);

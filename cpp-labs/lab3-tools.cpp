@@ -1,19 +1,32 @@
 #define SEQ_LEN 5
 
 #include <stdio.h>
+#include <ctype.h>
 
 void copyToBin(const char* fileName, const char* binFileName) {
     FILE* fptr1;
     FILE* fptr2;
     float buffer[SEQ_LEN];
+    char temp;
 
-    int wasRead;
+    int wasRead, c;
 
     fptr1 = fopen(fileName, "r");
     fptr2 = fopen(binFileName, "wb");
 
     while (!feof(fptr1))
     {
+        c = 0;
+        do
+        {
+            temp = fgetc(fptr1);
+            if (isdigit(temp)) {
+                buffer[c] = temp - '0';
+            }
+
+        } while (temp != (int)'\n' && c < 6);
+        
+        
         wasRead = fscanf(fptr1, "%f %f %f %f %f", &buffer[0], &buffer[1], &buffer[2], &buffer[3], &buffer[4]);
         if ( wasRead == 5)
         {
