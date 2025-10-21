@@ -4,26 +4,41 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-void readNum(FILE* fptr, char temp[], int& wasRead, char& chr) {
-    bool stopWasRead = false;
+void readNum(FILE* fptr, char temp[], int& wasRead, unsigned char& chr) {
+    bool isNegative = false;
+    int stopWasRead = 0;
+    
+    while (!isdigit(chr) && chr != '-' && chr != 255 && chr != '\n')
+    {
+        chr = fgetc(fptr);
+    }
 
-    while (!isdigit(chr) && chr != '-' && !feof(fptr) && chr != '\n')
+    if (chr == '-')
+    {
+        temp[wasRead++] = chr;
+        isNegative = true;
+        chr = fgetc(fptr);
+
+    }
+    
+    
+
+    while ((isdigit(chr) || chr == '.') && chr != 255 && chr != '\n' && stopWasRead < 2)
+    {
+        if (chr == '.')
         {
-            chr = fgetc(fptr);
+            stopWasRead++;
         }
         
-
-        while ((isdigit(chr) || chr == '.') && !feof(fptr) && chr != '\n' && !stopWasRead)
+        if (stopWasRead < 2)
         {
-            if (chr = '.')
-            {
-                stopWasRead = true;
-            }
-            
             temp[wasRead++] = chr;
             chr = fgetc(fptr);
         }
-        return;
+    }
+    temp[wasRead] = ' ';
+    wasRead = isNegative ? wasRead - 1 : wasRead;
+    return;
 }
 
 void copyToBin(const char* fileName, const char* binFileName) {
@@ -31,20 +46,22 @@ void copyToBin(const char* fileName, const char* binFileName) {
     FILE* fptr2;
     float buffer[SEQ_LEN];
     char temp[256];
-    char chr = 'o';
-    
+    unsigned char chr;
+    chr = ' ';
 
     int wasRead, counter;
 
     fptr1 = fopen(fileName, "r");
     fptr2 = fopen(binFileName, "wb");
 
-    while (!feof(fptr1))
+    while (chr != 255)
     {
-        while (chr != '\n' && counter < 5)
+        counter = 0;
+        chr = ' ';
+        while (chr != '\n' && counter < 5 && chr != 255)
         {
             wasRead = 0;
-            chr = 'o';
+            chr = ' ';
             readNum(fptr1, temp, wasRead, chr);
             if (wasRead != 0)
             {
