@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-void readNum(FILE* fptr, char temp[], int& wasRead, unsigned char& chr) {
+void readNum(FILE* fptr, char* temp, int& wasRead, unsigned char& chr) {
     bool isNegative = false;
     int stopWasRead = 0;
     
@@ -16,6 +16,7 @@ void readNum(FILE* fptr, char temp[], int& wasRead, unsigned char& chr) {
     if (chr == '-')
     {
         temp[wasRead++] = chr;
+        temp = (char*)realloc(temp, sizeof(char) * wasRead + 1);
         isNegative = true;
         chr = fgetc(fptr);
 
@@ -33,6 +34,7 @@ void readNum(FILE* fptr, char temp[], int& wasRead, unsigned char& chr) {
         if (stopWasRead < 2)
         {
             temp[wasRead++] = chr;
+            temp = (char*)realloc(temp, sizeof(char) * wasRead + 1);
             chr = fgetc(fptr);
         }
     }
@@ -45,7 +47,7 @@ void copyToBin(const char* fileName, const char* binFileName) {
     FILE* fptr1;
     FILE* fptr2;
     float buffer[SEQ_LEN];
-    char temp[256];
+    char* temp = (char*)malloc(sizeof(char) * 1);
     unsigned char chr;
     chr = ' ';
 
@@ -73,6 +75,8 @@ void copyToBin(const char* fileName, const char* binFileName) {
             fwrite(buffer, sizeof(float), SEQ_LEN, fptr2);
         }
     }
+
+    free(temp);
 
     fclose(fptr1);
     fclose(fptr2);
