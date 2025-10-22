@@ -10,8 +10,9 @@ int main(int argc, char const *argv[])
     int swapPos1, swapPos2;
     scanf("%d %d", &swapPos1, &swapPos2);
 
-    FILE* fptr;
+    FILE* fptr, *fptr2;
     fptr = fopen(argv[2], "rb+");
+    fptr2 = fopen(argv[3], "w");
 
     fseek(fptr, 0, SEEK_END);
     long fileSize = ftell(fptr);
@@ -27,7 +28,27 @@ int main(int argc, char const *argv[])
         printBinFile(fptr);
     }
 
+    float min, max;
+
+    do
+    {
+        scanf("%f, %f", &min, &max);
+        if (min > max)
+        {
+            printf("max more then min");
+        }
+        
+    } while (min > max);
+
+    addTask(fptr, fptr2, min, max);
+
+    printBinFile(fptr);
+    
+    
+
     fclose(fptr);
+    
+    
     
     return 0;
 }

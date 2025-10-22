@@ -120,3 +120,35 @@ void printBinFile(FILE* fptr) {
     return;
     
 }
+
+void addTask(FILE* fptr, float min, float max) {
+    fseek(fptr, 0, SEEK_SET);
+    float buffer[SEQ_LEN];
+    bool flag = false;
+    int i;
+
+    while (fread(&buffer, sizeof(float), SEQ_LEN, fptr) != 0) {
+        i = 0;
+        printf("a");
+        while (i < SEQ_LEN && !flag)
+        {
+            if (buffer[i] > max || buffer[i] < min)
+            {
+                flag = true;
+            }
+            else
+            {
+                i++;
+            }
+        }
+
+        fseek(fptr, ftell(fptr) - SEQ_LEN, SEEK_SET);
+        if (!flag)
+        {
+            fwrite(buffer, sizeof(float), SEQ_LEN, fptr);
+        }
+        
+        
+        
+    }
+}
