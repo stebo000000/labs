@@ -7,4 +7,4 @@ void swap(FILE* fptr, int swapPos1, int swapPos2);
 
 void printBinFile(FILE* fptr);
 
-void addTask(FILE* fptr, float min, float max, long oldSize);
+void addTask(FILE* fptr, float min, float max);

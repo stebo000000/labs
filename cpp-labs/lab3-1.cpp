@@ -39,7 +39,7 @@ int main(int argc, char const *argv[])
         
     } while (min > max);
     
-    addTask(fptr, min, max, fileSize);
+    addTask(fptr, min, max);
     printBinFile(fptr);
     fclose(fptr);
     

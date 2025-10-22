@@ -122,7 +122,7 @@ void printBinFile(FILE* fptr) {
     
 }
 
-void addTask(FILE* fptr, float min, float max, long oldLen) {
+void addTask(FILE* fptr, float min, float max) {
     fseek(fptr, 0, SEEK_SET);
     float buffer[SEQ_LEN];
     bool flag;
