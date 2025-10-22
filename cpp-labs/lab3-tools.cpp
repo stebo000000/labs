@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 void readNum(FILE* fptr, char* temp, int& wasRead, unsigned char& chr) {
     bool isNegative = false;
@@ -121,15 +122,17 @@ void printBinFile(FILE* fptr) {
     
 }
 
-void addTask(FILE* fptr, float min, float max) {
+void addTask(FILE* fptr, float min, float max, long oldLen) {
     fseek(fptr, 0, SEEK_SET);
     float buffer[SEQ_LEN];
-    bool flag = false;
+    bool flag;
     int i;
+    int counter = 0, wasRead = 0;
 
     while (fread(&buffer, sizeof(float), SEQ_LEN, fptr) != 0) {
         i = 0;
-        printf("a");
+        flag = false;
+        
         while (i < SEQ_LEN && !flag)
         {
             if (buffer[i] > max || buffer[i] < min)
@@ -141,14 +144,18 @@ void addTask(FILE* fptr, float min, float max) {
                 i++;
             }
         }
+        wasRead++;
 
-        fseek(fptr, ftell(fptr) - SEQ_LEN, SEEK_SET);
         if (!flag)
         {
+            fseek(fptr, sizeof(float) * SEQ_LEN * counter, SEEK_SET);
             fwrite(buffer, sizeof(float), SEQ_LEN, fptr);
+            counter++;
+            fseek(fptr, sizeof(float) * SEQ_LEN * wasRead, SEEK_SET);
         }
-        
-        
-        
     }
+    ftruncate(fileno(fptr), sizeof(float) * SEQ_LEN * counter);
+
+
+    return;
 }

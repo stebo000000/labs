@@ -10,13 +10,12 @@ int main(int argc, char const *argv[])
     int swapPos1, swapPos2;
     scanf("%d %d", &swapPos1, &swapPos2);
 
-    FILE* fptr, *fptr2;
+    FILE* fptr;
     fptr = fopen(argv[2], "rb+");
-    fptr2 = fopen(argv[3], "w");
-
+    
     fseek(fptr, 0, SEEK_END);
     long fileSize = ftell(fptr);
-
+    
     if (fileSize < swapPos1 * SEQ_LEN * sizeof(float) || fileSize < swapPos2 * SEQ_LEN * sizeof(float))
     {
         printf("can't swap: bad position");
@@ -27,27 +26,22 @@ int main(int argc, char const *argv[])
         swap(fptr, swapPos1, swapPos2);
         printBinFile(fptr);
     }
-
+    
     float min, max;
-
+    
     do
     {
-        scanf("%f, %f", &min, &max);
+        scanf("%f %f", &min, &max);
         if (min > max)
         {
             printf("max more then min");
         }
         
     } while (min > max);
-
-    addTask(fptr, fptr2, min, max);
-
+    
+    addTask(fptr, min, max, fileSize);
     printBinFile(fptr);
-    
-    
-
     fclose(fptr);
-    
     
     
     return 0;
