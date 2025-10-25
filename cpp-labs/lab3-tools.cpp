@@ -19,7 +19,7 @@ void readNum(FILE* fptr, char* temp, int& wasRead, unsigned char& chr) {
         temp[wasRead++] = chr;
         temp = (char*)realloc(temp, sizeof(char) * wasRead + 1);
         isNegative = true;
-        chr = fgetc(fptr);
+        chr = fgetc(fptr); 
 
     }
     
