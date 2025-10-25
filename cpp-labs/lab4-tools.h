@@ -1,0 +1,1 @@
+void readWords(const char* fileName, char* str, int& wasRead);
