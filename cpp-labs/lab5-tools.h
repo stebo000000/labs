@@ -4,12 +4,15 @@
 
 #define NMAX 10
 
-void findProduct(float* array, float& prod, bool& isNull, float min, float max, int arrL, float (*f)(float));
+typedef float (*functional)(float);
+
+void findProduct(float* array, float& prod, bool& isNull, float min, float max, int arrL, functional);
 
 void input(FILE* fptr, float*& arr, int& arrL);
 
 void input(float& num);
 
-void printArray(float *arr, int arrLen, float (*f)(float));
+void printArray(float *arr, int arrLen, functional);
 
 void freeMem(float*& arr);
+

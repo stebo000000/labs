@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include "lab5-tools.h"
 #define NMAX 10
 
-void findProduct(float *array, float& prod, bool& isNull, float min, float max, int arrL, float (*f)(float)) {
+void findProduct(float *array, float& prod, bool& isNull, float min, float max, int arrL, functional f) {
     for (int i = 0; i < arrL; i++) {
         if (f(array[i]) >= min && f(array[i]) <= max)
         {
@@ -43,7 +44,7 @@ void input(float& num) {
     return;
 }
 
-void printArray(float *arr, int arrLen, float (*f)(float)) {
+void printArray(float *arr, int arrLen, functional f) {
     for (int i = 0; i < arrLen; i++)
     {
         printf("%f ", f(arr[i]));

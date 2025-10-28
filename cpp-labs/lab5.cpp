@@ -6,6 +6,10 @@ float func(float x) {
     return x / 2;
 }
 
+float f1(float x) {
+    return x;
+}
+
 
 int main(int argc, char const *argv[]) {
     FILE* fptr;
@@ -30,7 +34,7 @@ int main(int argc, char const *argv[]) {
     input(min);
     input(max);
 
-    printf("arrs after func\n");
+    printf("arrs with func\n");
     
     
     printArray(arr1, arrL1, fabsf);
@@ -38,9 +42,9 @@ int main(int argc, char const *argv[]) {
     printArray(arr3, arrL3, [](float x){return x * 2;});
     
     printf("\narrs without func\n");
-    printArray(arr1, arrL1, [](float x){return x;});
-    printArray(arr2, arrL2, [](float x){return x;});
-    printArray(arr3, arrL3, [](float x){return x;});
+    printArray(arr1, arrL1, f1);
+    printArray(arr2, arrL2, f1);
+    printArray(arr3, arrL3, f1);
     printf("\n");
     
     if (min > max)
