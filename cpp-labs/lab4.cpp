@@ -12,11 +12,9 @@ void readWord(FILE* fptr, char*& str, int& wasRead, unsigned char& chr) {
     return;
 }
 void readWords(const char* fileName, char**& strs, int*& wordsLens, int& wordsCount) {
-    FILE* fptr1;
+    FILE* fptr1 = fopen(fileName, "r");
     unsigned char chr = ' ';
     int wasRead;
-    wordsLens = (int*)malloc(sizeof(int));
-    fptr1 = fopen(fileName, "r");
     while (chr != 255) {
         while (chr != 255) {
             wasRead = 0;
@@ -31,12 +29,9 @@ void readWords(const char* fileName, char**& strs, int*& wordsLens, int& wordsCo
 }
 void sort(int* wordsLens, int& wordsCount, int* wordIndexes) {
     int buffer;
-    for (int i = 0; i < wordsCount - 1; i++)
-    {
-        for (int j = i + 1; j < wordsCount; j++)
-        {
-            if (wordsLens[i] < wordsLens[j])
-            {
+    for (int i = 0; i < wordsCount - 1; i++) {
+        for (int j = i + 1; j < wordsCount; j++) {
+            if (wordsLens[i] < wordsLens[j]) {
                 buffer = wordsLens[i];
                 wordsLens[i] = wordsLens[j];
                 wordsLens[j] = buffer;
@@ -46,27 +41,19 @@ void sort(int* wordsLens, int& wordsCount, int* wordIndexes) {
             }}}
     return;
 }
-int main(int argc, char const *argv[])
-{  
+int main(int argc, char const *argv[]) {  
     char** strs = (char**)malloc(sizeof(char*));
-    int* wordsLens;
+    int* wordsLens = (int*)malloc(sizeof(int));
     int wordsCount = 0;
     readWords(argv[1], strs, wordsLens, wordsCount);
     int* wordIndexes = (int*)malloc(sizeof(int) * wordsCount);
     for (int i = 0; i < wordsCount; i++) wordIndexes[i] = i;
     sort(wordsLens, wordsCount, wordIndexes);
-    for (int i = 0; i < wordsCount; i++)
-    {
-        for (int j = 0; j < wordsLens[i]; j++)
-        {
-            printf("%c", strs[wordIndexes[i]][j]);
-        }
+    for (int i = 0; i < wordsCount; i++) {
+        for (int j = 0; j < wordsLens[i]; j++) printf("%c", strs[wordIndexes[i]][j]);
         printf("\n");
     }
-    for (int i = 0; i < wordsCount; i++)
-    {
-        free(strs[i]);
-    }
+    for (int i = 0; i < wordsCount; i++) free(strs[i]);
     free(wordIndexes);
     free(wordsLens);
     return 0;
