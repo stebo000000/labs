@@ -94,7 +94,7 @@ int main(int argc, char const *argv[])
     {
         for (int j = 0; j < wordsLens[i]; j++)
         {
-            printf("%c", strs[i][j]);
+            printf("%c", strs[wordIndexes[i]][j]);
         }
         printf("\n");
     }
