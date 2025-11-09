@@ -1,10 +1,7 @@
-#define SEQ_LEN 5
-
 #include <stdio.h>
-#include <ctype.h>
 #include <stdlib.h>
 
-bool isCorrectChar(unsigned char& chr) {
+bool isCorrectChar(unsigned char chr) {
     return chr >= '0' && chr <= '9' || chr >= 'a' && chr <= 'z' || chr >= 'A' && chr <= 'Z';
 }
 
@@ -21,18 +18,15 @@ void readWord(FILE* fptr, char* str, int& wasRead, unsigned char& chr) {
         str = (char*)realloc(str, sizeof(char) * wasRead + 1);
         chr = fgetc(fptr);
     }
-
-    str[wasRead++] = ' ';
-    str = (char*)realloc(str, sizeof(char) * wasRead + 1);
+    //! probably wasRead--;
     return;
 }
 
-void readWords(const char* fileName, char* str, int& wasRead) {
+void readWords(const char* fileName, char** strs, int* wordsLens, int& wordsCount) {
     FILE* fptr1;
-    unsigned char chr;
-    chr = ' ';
-
+    unsigned char chr = ' ';
     int wasRead;
+    wordsLens = (int*)malloc(sizeof(int));
 
     fptr1 = fopen(fileName, "r");
 
@@ -41,32 +35,19 @@ void readWords(const char* fileName, char* str, int& wasRead) {
         while (chr != 255)
         {
             wasRead = 0;
-            readWord(fptr1, str, wasRead, chr);
+            readWord(fptr1, strs[wordsCount++], wasRead, chr);
+            wordsLens = (int*)realloc(wordsLens, sizeof(int) * wordsCount + 1);
+
         }
     }
+    //! probably wordsCount--;
 
     fclose(fptr1);
     return;
 }
 
-void getWordsLen(char* str, int strLen, int*& letterCounts) {
-    int counter = 0;
-    int i = 0;
 
-    while (counter < strLen)
-    {
-        if (str[i++] == ' ')
-        {
-            letterCounts[counter++] = i;
-            i = 0;
-        }
-        
-    }
-    
-    return;
-}
-
-void getWordsIndexes(int strLen, int*& wordIndexes) {
+void getWordsIndexes(int strLen, int* wordIndexes) {
     for (int i = 0; i < strLen; i++)
     {
         wordIndexes[i] = i;
@@ -74,73 +55,37 @@ void getWordsIndexes(int strLen, int*& wordIndexes) {
     return;
 }
 
-void sort(char* str, int strLen) {
-    int* letterCounts = new int[strLen];
-    int* wordIndexes = new int[strLen];
+void sort(int* wordsLens, int& wordsCount, int* wordIndexes) {
     int buffer;
 
-    getWordsLen(str, strLen, letterCounts);
-    getWordsIndexes(strLen, wordIndexes);
-
-    for (int i = 0; i < strLen - 1; i++)
+    for (int i = 0; i < wordsCount - 1; i++)
     {
-        for (int j = i + 1; j < strLen; j++)
+        for (int j = i + 1; j < wordsCount; j++)
         {
-            if (letterCounts[i] < letterCounts[j])
+            if (wordsLens[i] < wordsLens[j])
             {
-                buffer = letterCounts[i];
-                letterCounts[i] = letterCounts[j];
-                letterCounts[j] = buffer;
+                buffer = wordsLens[i];
+                wordsLens[i] = wordsLens[j];
+                wordsLens[j] = buffer;
 
                 buffer = wordIndexes[i];
                 wordIndexes[i] = wordIndexes[j];
                 wordIndexes[j] = buffer;
             }
         }
-
-        
     }
     
-
-
-    delete[] letterCounts;
     return;
 }
 
-void swap(FILE* fptr, int swapPos1, int swapPos2) {
-    float seq1[SEQ_LEN], seq2[SEQ_LEN];
-
-    fseek(fptr, swapPos1 * SEQ_LEN * sizeof(float), SEEK_SET);
-    fread(seq1, sizeof(float), SEQ_LEN, fptr);
-
-    fseek(fptr, swapPos2 * SEQ_LEN * sizeof(float), SEEK_SET);
-    fread(seq2, sizeof(float), SEQ_LEN, fptr);
-
-    fseek(fptr, swapPos1 * SEQ_LEN * sizeof(float), SEEK_SET);
-    fwrite(seq2, sizeof(float), SEQ_LEN, fptr);
-
-    fseek(fptr, swapPos2 * SEQ_LEN * sizeof(float), SEEK_SET);
-    fwrite(seq1, sizeof(float), SEQ_LEN, fptr);
-
-    return;
-}
-
-void printBinFile(FILE* fptr) {
-    fseek(fptr, 0, SEEK_SET);
-
-    float buffer;
-
-    int i = 0;
-    while (fread(&buffer, sizeof(float), 1, fptr) != 0)
+void printByRule(char** strs, int* wordsLens, int& wordsCount, int* wordIndexes) {
+    for (int i = 0; i < wordsCount; i++)
     {
-        if (!(i % 5))
+        for (int j = 0; j < wordsLens[i]; j++)
         {
-            printf("\n");
+            printf("%c", strs[i][j]);
         }
-        printf("%f ", buffer);
-        i++;
+        printf("\n");
     }
-    printf("\n");
     return;
-    
 }
