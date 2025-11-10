@@ -27,17 +27,18 @@ void readWords(const char* fileName, char**& strs, int*& wordsLens, int& wordsCo
     fclose(fptr1);
     return;
 }
-void sort(int* wordsLens, int& wordsCount, int* wordIndexes) {
+void sort(int* wordsLens, int& wordsCount, char** strs) {
     int buffer;
+    char* buf;
     for (int i = 0; i < wordsCount - 1; i++) {
         for (int j = i + 1; j < wordsCount; j++) {
             if (wordsLens[i] < wordsLens[j]) {
                 buffer = wordsLens[i];
                 wordsLens[i] = wordsLens[j];
                 wordsLens[j] = buffer;
-                buffer = wordIndexes[i];
-                wordIndexes[i] = wordIndexes[j];
-                wordIndexes[j] = buffer;
+                buf = strs[i];
+                strs[i] = strs[j];
+                strs[j] = buf;
             }}}
     return;
 }
@@ -46,15 +47,12 @@ int main(int argc, char const *argv[]) {
     int* wordsLens = (int*)malloc(sizeof(int));
     int wordsCount = 0;
     readWords(argv[1], strs, wordsLens, wordsCount);
-    int* wordIndexes = (int*)malloc(sizeof(int) * wordsCount);
-    for (int i = 0; i < wordsCount; i++) wordIndexes[i] = i;
-    sort(wordsLens, wordsCount, wordIndexes);
+    sort(wordsLens, wordsCount, strs);
     for (int i = 0; i < wordsCount; i++) {
-        for (int j = 0; j < wordsLens[i]; j++) printf("%c", strs[wordIndexes[i]][j]);
+        for (int j = 0; j < wordsLens[i]; j++) printf("%c", strs[i][j]);
         printf("\n");
     }
     for (int i = 0; i < wordsCount; i++) free(strs[i]);
-    free(wordIndexes);
     free(wordsLens);
     return 0;
 }
