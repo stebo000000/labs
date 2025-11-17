@@ -12,15 +12,11 @@ void readLetter(FILE* fptr, char*& str, int& wasRead, unsigned char& chr) {
         chr = fgetc(fptr);
         readLetter(fptr, str, wasRead, chr);}
     return;}
-void readWord(FILE* fptr, char*& str, int& wasRead, unsigned char& chr) {
-    str = (char*)malloc(sizeof(char));
-    readGarbage(fptr, str, chr);
-    readLetter(fptr, str, wasRead, chr);
-    return;}
-void readWords(FILE* fptr, char**& strs, int*& wordsLens, int& wordsCount, unsigned char chr = ' ') {
+void readWords(FILE* fptr, char**& strs, int*& wordsLens, int& wordsCount, unsigned char chr = ' ', int wasRead = 0) {
     if (chr != 255) {
-        int wasRead = 0;
-        readWord(fptr, strs[wordsCount], wasRead, chr);
+        strs[wordsCount] = (char*)malloc(sizeof(char)); // start read word
+        readGarbage(fptr, strs[wordsCount], chr);
+        readLetter(fptr, strs[wordsCount], wasRead, chr); // end read word
         if (wasRead > 0) {
             wordsLens[wordsCount++] = wasRead;
             wordsLens = (int*)realloc(wordsLens, sizeof(int) * wordsCount + 1);
@@ -28,7 +24,7 @@ void readWords(FILE* fptr, char**& strs, int*& wordsLens, int& wordsCount, unsig
             readWords(fptr, strs, wordsLens, wordsCount);}}
     return;}
 void sort(int* wordsLens, int& wordsCount, char** strs, int i, int j) {
-    if (i < wordsCount - 1) {
+    if (i < wordsCount) {
         if (j < wordsCount) {
             if (wordsLens[i] < wordsLens[j]) {
                 int buffer = wordsLens[i];
@@ -38,16 +34,17 @@ void sort(int* wordsLens, int& wordsCount, char** strs, int i, int j) {
                 strs[i] = strs[j];
                 strs[j] = buf;}
             sort(wordsLens, wordsCount, strs, i, ++j);}
-        sort(wordsLens, wordsCount, strs, ++i, i + 1);}
+        else sort(wordsLens, wordsCount, strs, i + 1, i + 2);}
     return;}
 void printRes(int i, int j, int wordsCount, int* wordsLens, char** strs) {
     if (i < wordsCount) {
         if (j < wordsLens[i]) {
             printf("%c", strs[i][j]);
-            printRes(i, j++, wordsCount, wordsLens, strs);}
-        printf("\n");
-        printRes(i++, 0, wordsCount, wordsLens, strs);
-        free(strs[i]);}
+            printRes(i, ++j, wordsCount, wordsLens, strs);}
+        else {
+            printf("\n");
+            free(strs[i]);
+            printRes(++i, 0, wordsCount, wordsLens, strs);}}
     return;}
 int main(int argc, char const *argv[]) {
     char** strs = (char**)malloc(sizeof(char*));
@@ -58,5 +55,6 @@ int main(int argc, char const *argv[]) {
     fclose(fptr);
     sort(wordsLens, wordsCount, strs, 0, 1);
     printRes(0, 0, wordsCount, wordsLens, strs);
+    free(strs);
     free(wordsLens);
     return 0;}
