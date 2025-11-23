@@ -17,8 +17,7 @@ typedef unsigned long MYINT;
 
 void printBin(MYINT x) {
     printf("bin: ");
-    for (int i = sizeof(MYINT) * 8 - 1; i >= 0; i--)
-    {
+    for (int i = sizeof(MYINT) * 8 - 1; i >= 0; i--) {
         printf("%d", (x >> i) & 1);
     }
     printf("\n");
@@ -59,12 +58,9 @@ int main() {
 
     scanf("%ld %ld %ld", &x, &n, &p);
 
-    if (INT_SIZE <= n + p)
-    {
+    if (INT_SIZE <= n + p) {
         printf("incorrect params");
-    }
-    else
-    {
+    } else {
         MYINT mask = ~(~0 << n) << p << 1;
 
         // printBin(x);
