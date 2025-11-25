@@ -1,4 +1,4 @@
-#include "lab9-tools.cpp"
+#include "lab9-tools.h"
 #include <cstdio>
 
 int main() {
@@ -23,7 +23,6 @@ int main() {
     matrix3.changeElement(1, 0, 3);
     matrix3.changeElement(1, 1, 4);
     matrix3.print();
-
     IntMatrix matrix4(5.0);
     matrix4.print();
 
