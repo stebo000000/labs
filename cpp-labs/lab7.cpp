@@ -51,31 +51,76 @@ void printDec(MYINT x) {
     return;
 }
 
+
+void input(MYINT& x, int& n, int& p) {
+    printf("x n p\n");
+    do
+    {
+        scanf("%d %d %d", &x, &n, &p);
+        if (INT_SIZE <= n + p)
+        {
+            printf("incorrect params\n");
+        }
+        
+    } while (INT_SIZE <= n + p);
+    
+    return;
+}
+
+MYINT formMask(int n, int p) {
+    return ~(~0 << n) << p;
+}
+// цикл сдвиг влево на k бит
+
+MYINT applyMask(MYINT x, MYINT mask) {
+    return x | mask;
+}
+
+MYINT leftShift(MYINT x, int k) {
+    return (x << k);
+}
+
+MYINT rightShift(MYINT x, int k) {
+    return (x >> (sizeof(MYINT) * 8 - k));
+}
+
+MYINT left_shift(MYINT x, int k) {
+    return leftShift(x, k) | rightShift(x, k);
+} 
+
+void inputk(int& k) {
+    printf("input k: ");
+    do
+    {
+        scanf("%d", &k);
+        if (k > 8 * sizeof(MYINT))
+        {
+            printf("incorrect k\n");
+        }
+        
+    } while (k > 8 * sizeof(MYINT));
+}
+
 int main() {
     MYINT x;
     int n, p;
 
-    printf("x n p\n");
+    input(x, n, p);
 
-    scanf("%ld %ld %ld", &x, &n, &p);
+    MYINT mask = formMask(n, p);
 
-    if (INT_SIZE <= n + p)
-    {
-        printf("incorrect params");
-    }
-    else
-    {
-        MYINT mask = ~(~0 << n) << p << 1;
+    printBin(x);
+    // printBin(mask);
 
-        // printBin(x);
-        // printBin(mask);
+    MYINT result = applyMask(x, mask);
 
-        int result = x | mask;
+    int k;
+    inputk(k);
+    printBin(left_shift(x, k));
 
-        printDec(result);
-        printHex(result);
-        printBin(result);
-    }
+    // printDec(result);
+    // printHex(result);
+    // printBin(result);
 
     return 0;
 }
