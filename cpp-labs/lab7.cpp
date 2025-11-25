@@ -17,8 +17,7 @@ typedef unsigned long MYINT;
 
 void printBin(MYINT x) {
     printf("bin: ");
-    for (int i = sizeof(MYINT) * 8 - 1; i >= 0; i--)
-    {
+    for (int i = sizeof(MYINT) * 8 - 1; i >= 0; i--) {
         printf("%d", (x >> i) & 1);
     }
     printf("\n");
@@ -109,8 +108,15 @@ int main() {
 
     MYINT mask = formMask(n, p);
 
+<<<<<<< HEAD
     printBin(x);
     // printBin(mask);
+=======
+    if (INT_SIZE <= n + p) {
+        printf("incorrect params");
+    } else {
+        MYINT mask = ~(~0 << n) << p << 1;
+>>>>>>> 496e9ad42787f31b3f296bb65a6e977460117c84
 
     MYINT result = applyMask(x, mask);
 
