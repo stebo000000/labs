@@ -3,10 +3,7 @@
 class IntMatrix {
   private:
     int **matrix;
-    const int rowCount, colCount;
-
-    IntMatrix gaussianElimination(const IntMatrix &augmented) const;
-    bool isSquare() const;
+    int rowCount, colCount;
 
   public:
     IntMatrix(double element);
@@ -20,6 +17,13 @@ class IntMatrix {
     double toDouble() const;
     void print() const;
 
-    IntMatrix matrixDivision(const IntMatrix &other) const;
+    IntMatrix &operator=(const IntMatrix &other);
+    IntMatrix &operator=(IntMatrix &&other);
+    bool operator==(const IntMatrix &other) const;
+    bool operator!=(const IntMatrix &other) const;
+    IntMatrix operator+(const IntMatrix &other) const;
+    IntMatrix operator-(const IntMatrix &other) const;
+    int *operator[](int index);
+    const int *operator[](int index) const;
+    IntMatrix &operator+=(int &value);
 };
-// реализовать матричное делениеыs

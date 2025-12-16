@@ -6,3 +6,5 @@ extern "C" void readWords(FILE *fptr, char **&strs, int *&wordsLens,
                           int wasRead = 0);
 extern "C" void printRes(int i, int j, int wordsCount, int *wordsLens,
                          char **strs);
+
+extern "C" void run(const char *filename);

@@ -1,7 +1,7 @@
 #include "lab9-tools.h"
 #include <cstdio>
 
-int main() {
+int main(int argc, const char *argv[]) {
     IntMatrix matrix(3, 3);
     matrix.changeElement(0, 0, 1);
     matrix.changeElement(0, 1, 2);
@@ -19,13 +19,20 @@ int main() {
 
     IntMatrix matrix3 = IntMatrix(2, 2);
     matrix3.changeElement(0, 0, 1);
-    matrix3.changeElement(0, 1, 2);
+    matrix3.changeElement(0, 1, 0);
     matrix3.changeElement(1, 0, 3);
     matrix3.changeElement(1, 1, 4);
     matrix3.print();
     IntMatrix matrix4(5.0);
     matrix4.print();
 
-    printf("%lf\n", (double)matrix);
+    printf("%lf\n", matrix.toDouble());
+
+    IntMatrix matrix5(2, 2, argv[1]);
+    matrix5.print();
+
+    printf("\n");
+    IntMatrix divMatrix = matrix5.matrixDivision(matrix3);
+    divMatrix.print();
     return 0;
 }

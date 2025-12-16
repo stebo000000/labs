@@ -1,5 +1,5 @@
-// #include "lab9-tools.h"
-#include "lab9-tools.h"
+
+#include "lab10-tools.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -68,6 +68,7 @@ void IntMatrix::print() const {
         }
         printf("\n");
     }
+    printf("\n");
 }
 double IntMatrix::toDouble() const {
     double sum = 0;
@@ -79,76 +80,74 @@ double IntMatrix::toDouble() const {
     return sum / (rowCount * colCount);
 }
 
-bool IntMatrix::isSquare() const { return rowCount == colCount; }
-
-IntMatrix IntMatrix::matrixDivision(const IntMatrix &other) const {
-
-    IntMatrix augmented(rowCount, colCount + other.colCount);
-
+IntMatrix &IntMatrix::operator=(const IntMatrix &other) {
+    rowCount = other.rowCount;
+    colCount = other.colCount;
+    matrix = new int *[rowCount];
     for (int i = 0; i < rowCount; i++) {
+        matrix[i] = new int[colCount];
         for (int j = 0; j < colCount; j++) {
-            augmented.changeElement(i, j, element(i, j));
-        }
-        for (int j = 0; j < other.colCount; j++) {
-            augmented.changeElement(i, colCount + j, other.element(i, j));
+            matrix[i][j] = other.matrix[i][j];
         }
     }
-    return gaussianElimination(augmented);
+    return *this;
 }
 
-IntMatrix IntMatrix::gaussianElimination(const IntMatrix &augmented) const {
-    IntMatrix result(augmented);
-    int n = rowCount;
-    int m = augmented.colCount;
+IntMatrix &IntMatrix::operator=(IntMatrix &&other) {
+    rowCount = other.rowCount;
+    colCount = other.colCount;
+    matrix = other.matrix;
+    other.matrix = nullptr;
+    return *this;
+}
 
-    for (int i = 0; i < n; i++) {
-        int maxRow = i;
-        for (int k = i + 1; k < n; k++) {
-            if (abs(result.element(k, i)) > abs(result.element(maxRow, i))) {
-                maxRow = k;
-            }
-        }
-
-        if (maxRow != i) {
-            for (int j = 0; j < m; j++) {
-                int temp = result.element(i, j);
-                result.changeElement(i, j, result.element(maxRow, j));
-                result.changeElement(maxRow, j, temp);
-            }
-        }
-
-        int diag = result.element(i, i);
-        for (int j = i; j < m; j++) {
-            result.changeElement(i, j, result.element(i, j) / diag);
-        }
-
-        for (int k = i + 1; k < n; k++) {
-            int factor = result.element(k, i);
-            for (int j = i; j < m; j++) {
-                int newValue =
-                    result.element(k, j) - factor * result.element(i, j);
-                result.changeElement(k, j, newValue);
+bool IntMatrix::operator==(const IntMatrix &other) const {
+    if (rowCount != other.rowCount || colCount != other.colCount) {
+        return false;
+    }
+    for (int i = 0; i < rowCount; i++) {
+        for (int j = 0; j < colCount; j++) {
+            if (matrix[i][j] != other.matrix[i][j]) {
+                return false;
             }
         }
     }
+    return true;
+}
 
-    for (int i = n - 1; i >= 0; i--) {
-        for (int k = i - 1; k >= 0; k--) {
-            int factor = result.element(k, i);
-            for (int j = i; j < m; j++) {
-                int newValue =
-                    result.element(k, j) - factor * result.element(i, j);
-                result.changeElement(k, j, newValue);
-            }
+bool IntMatrix::operator!=(const IntMatrix &other) const {
+    return !(*this == other);
+}
+
+IntMatrix IntMatrix::operator+(const IntMatrix &other) const {
+    IntMatrix result(rowCount, colCount);
+    for (int i = 0; i < rowCount; i++) {
+        for (int j = 0; j < colCount; j++) {
+            result.changeElement(i, j, matrix[i][j] + other.matrix[i][j]);
         }
     }
+    return result;
+}
 
-    IntMatrix solution(n, m - colCount);
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < solution.colCount; j++) {
-            solution.changeElement(i, j, result.element(i, colCount + j));
+IntMatrix IntMatrix::operator-(const IntMatrix &other) const {
+    IntMatrix result(rowCount, colCount);
+    for (int i = 0; i < rowCount; i++) {
+        for (int j = 0; j < colCount; j++) {
+            result.changeElement(i, j, matrix[i][j] - other.matrix[i][j]);
         }
     }
+    return result;
+}
 
-    return solution;
+const int *IntMatrix::operator[](int index) const { return matrix[index]; }
+
+int *IntMatrix::operator[](int index) { return matrix[index]; }
+
+IntMatrix &IntMatrix::operator+=(int &value) {
+    for (int i = 0; i < rowCount; i++) {
+        for (int j = 0; j < colCount; j++) {
+            matrix[i][j] += value;
+        }
+    }
+    return *this;
 }

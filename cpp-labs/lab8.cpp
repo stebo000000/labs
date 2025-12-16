@@ -74,6 +74,21 @@ extern "C" void printRes(int i, int j, int wordsCount, int *wordsLens,
     return;
 }
 
+extern "C" void run(const char *filename) {
+    char **strs = (char **)malloc(sizeof(char *));
+    int *wordsLens = (int *)malloc(sizeof(int));
+    int wordsCount = 0;
+    FILE *fptr = fopen(filename, "r");
+    readWords(fptr, strs, wordsLens, wordsCount);
+    fclose(fptr);
+    sort(wordsLens, wordsCount, strs, 0, 1);
+    printRes(0, 0, wordsCount, wordsLens, strs);
+    free(strs);
+    free(wordsLens);
+
+    return;
+}
+
 // int main(int argc, char const *argv[]) {
 //     char **strs = (char **)malloc(sizeof(char *));
 //     int *wordsLens = (int *)malloc(sizeof(int));
