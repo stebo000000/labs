@@ -1,4 +1,4 @@
-#include "lab10-tools.h"
+#include "lab11-tools.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -148,21 +148,21 @@ bool IntMatrix::operator!=(const IntMatrix &other) const {
     return !(*this == other);
 }
 
-IntMatrix IntMatrix::operator+(const IntMatrix &other) const {
-    IntMatrix result(rowCount, matrix[0].len());
-    for (int i = 0; i < rowCount; i++) {
-        for (int j = 0; j < matrix[i].len(); j++) {
-            result.changeElement(i, j, matrix[i][j] + other.matrix[i][j]);
+IntMatrix operator+(const IntMatrix &other, const IntMatrix &another) {
+    IntMatrix result(other.rowCount, other[0].len());
+    for (int i = 0; i < other.rowCount; i++) {
+        for (int j = 0; j < other[i].len(); j++) {
+            result[i][j] = other.matrix[i][j] + another.matrix[i][j];
         }
     }
     return result;
 }
 
-IntMatrix IntMatrix::operator-(const IntMatrix &other) const {
-    IntMatrix result(rowCount, matrix[0].len());
-    for (int i = 0; i < rowCount; i++) {
-        for (int j = 0; j < matrix[i].len(); j++) {
-            result.changeElement(i, j, matrix[i][j] - other.matrix[i][j]);
+IntMatrix operator-(const IntMatrix &other, const IntMatrix &another) {
+    IntMatrix result(other.rowCount, other[0].len());
+    for (int i = 0; i < other.rowCount; i++) {
+        for (int j = 0; j < other[i].len(); j++) {
+            result[i][j] = other.matrix[i][j] - another.matrix[i][j];
         }
     }
     return result;
@@ -174,11 +174,20 @@ const IntVector &IntMatrix::operator[](int index) const {
 
 IntVector &IntMatrix::operator[](int index) { return matrix[index]; }
 
-IntMatrix &IntMatrix::operator+=(int &value) {
-    for (int i = 0; i < rowCount; i++) {
-        for (int j = 0; j < matrix[i].len(); j++) {
-            matrix[i][j] += value;
+IntMatrix &operator+=(const int &value, IntMatrix &other) {
+    for (int i = 0; i < other.rowCount; i++) {
+        for (int j = 0; j < other[i].len(); j++) {
+            other[i][j] += value;
         }
     }
-    return *this;
+    return other;
+}
+
+IntMatrix &operator+=(IntMatrix &other, const int &value) {
+    for (int i = 0; i < other.rowCount; i++) {
+        for (int j = 0; j < other[i].len(); j++) {
+            other[i][j] += value;
+        }
+    }
+    return other;
 }

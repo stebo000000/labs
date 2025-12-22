@@ -1,3 +1,4 @@
+
 #pragma once
 #include <stdio.h>
 
@@ -41,9 +42,12 @@ class IntMatrix {
     IntMatrix &operator=(IntMatrix &&other);
     bool operator==(const IntMatrix &other) const;
     bool operator!=(const IntMatrix &other) const;
-    IntMatrix operator+(const IntMatrix &other) const;
-    IntMatrix operator-(const IntMatrix &other) const;
+    friend IntMatrix operator+(const IntMatrix &other,
+                               const IntMatrix &another);
+    friend IntMatrix operator-(const IntMatrix &other,
+                               const IntMatrix &another);
     IntVector &operator[](int index);
     const IntVector &operator[](int index) const;
-    IntMatrix &operator+=(int &value);
+    friend IntMatrix &operator+=(const int &value, IntMatrix &other);
+    friend IntMatrix &operator+=(IntMatrix &other, const int &value);
 };

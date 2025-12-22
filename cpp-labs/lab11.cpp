@@ -1,4 +1,5 @@
-#include "lab10-tools.h"
+
+#include "lab11-tools.h"
 #include <stdio.h>
 
 int main() {
@@ -19,6 +20,12 @@ int main() {
     mx4.print();
     IntMatrix mx5 = matrix1 - matrix2;
     mx5.print();
+
+    mx4 += 1;
+    mx4.print();
+
+    1 += mx4; // cannot be done without friend
+    mx4.print();
 
     printf("%d", mx4[1][0]);
     return 0;
