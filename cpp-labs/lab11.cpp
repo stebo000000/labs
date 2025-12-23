@@ -24,6 +24,8 @@ int main() {
     mx4 += 1;
     mx4.print();
 
+    printf("is same: %d\n", 1 == IntMatrix(1));
+
     1 += mx4; // cannot be done without friend
     mx4.print();
 

@@ -3,7 +3,6 @@
 
 int main() {
     IntMatrix matrix1(2, 2);
-    printf("%d\n", matrix1[0].len());
     matrix1.changeElement(0, 0, 1);
     matrix1.changeElement(0, 1, 0);
     matrix1.changeElement(1, 0, 3);
@@ -19,6 +18,15 @@ int main() {
     mx4.print();
     IntMatrix mx5 = matrix1 - matrix2;
     mx5.print();
+
+    mx4 += 10;
+    mx4.print();
+
+    mx4 = mx4 * 2;
+    mx4.print();
+
+    mx4 = mx4 * mx5;
+    mx4.print();
 
     printf("%d", mx4[1][0]);
     return 0;

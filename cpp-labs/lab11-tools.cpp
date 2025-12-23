@@ -129,14 +129,14 @@ IntMatrix &IntMatrix::operator=(IntMatrix &&other) {
     return *this;
 }
 
-bool IntMatrix::operator==(const IntMatrix &other) const {
-    if (rowCount != other.rowCount ||
-        matrix[0].len() != other.matrix[0].len()) {
+bool operator==(const IntMatrix &other, const IntMatrix &another) {
+    if (other.rowCount != another.rowCount ||
+        other[0].len() != another.matrix[0].len()) {
         return false;
     }
-    for (int i = 0; i < rowCount; i++) {
-        for (int j = 0; j < matrix[i].len(); j++) {
-            if (matrix[i][j] != other.matrix[i][j]) {
+    for (int i = 0; i < other.rowCount; i++) {
+        for (int j = 0; j < other.matrix[i].len(); j++) {
+            if (other[i][j] != another.matrix[i][j]) {
                 return false;
             }
         }
@@ -144,8 +144,8 @@ bool IntMatrix::operator==(const IntMatrix &other) const {
     return true;
 }
 
-bool IntMatrix::operator!=(const IntMatrix &other) const {
-    return !(*this == other);
+bool operator!=(const IntMatrix &other, const IntMatrix &another) {
+    return !(other == another);
 }
 
 IntMatrix operator+(const IntMatrix &other, const IntMatrix &another) {
@@ -190,4 +190,28 @@ IntMatrix &operator+=(IntMatrix &other, const int &value) {
         }
     }
     return other;
+}
+
+IntMatrix operator*(const IntMatrix &other, const int &value) {
+    IntMatrix result(other.rowCount, other[0].len());
+    for (int i = 0; i < other.rowCount; i++) {
+        for (int j = 0; j < other[i].len(); j++) {
+            result[i][j] = other.matrix[i][j] * value;
+        }
+    }
+    return result;
+}
+
+IntMatrix operator*(const IntMatrix &other, const IntMatrix &another) {
+    IntMatrix result(other.rowCount, other.matrix[0].len());
+    for (int i = 0; i < other.rowCount; i++) {
+        for (int j = 0; j < another.matrix[0].len(); j++) {
+            int sum = 0;
+            for (int k = 0; k < other[0].len(); k++) {
+                sum += other[i][k] * another.matrix[k][j];
+            }
+            result.changeElement(i, j, sum);
+        }
+    }
+    return result;
 }

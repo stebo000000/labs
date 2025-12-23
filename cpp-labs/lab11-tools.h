@@ -21,7 +21,7 @@ class IntVector {
     IntVector &operator=(IntVector &&other);
 };
 
-class IntMatrix {
+class IntMatrix : IntVector {
   private:
     IntVector *matrix;
     int rowCount;
@@ -40,8 +40,8 @@ class IntMatrix {
 
     IntMatrix &operator=(const IntMatrix &other);
     IntMatrix &operator=(IntMatrix &&other);
-    bool operator==(const IntMatrix &other) const;
-    bool operator!=(const IntMatrix &other) const;
+    friend bool operator==(const IntMatrix &other, const IntMatrix &another);
+    friend bool operator!=(const IntMatrix &other, const IntMatrix &another);
     friend IntMatrix operator+(const IntMatrix &other,
                                const IntMatrix &another);
     friend IntMatrix operator-(const IntMatrix &other,
@@ -50,4 +50,7 @@ class IntMatrix {
     const IntVector &operator[](int index) const;
     friend IntMatrix &operator+=(const int &value, IntMatrix &other);
     friend IntMatrix &operator+=(IntMatrix &other, const int &value);
+    friend IntMatrix operator*(const IntMatrix &other, const int &value);
+    friend IntMatrix operator*(const IntMatrix &other,
+                               const IntMatrix &another);
 };

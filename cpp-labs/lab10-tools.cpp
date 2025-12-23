@@ -174,11 +174,34 @@ const IntVector &IntMatrix::operator[](int index) const {
 
 IntVector &IntMatrix::operator[](int index) { return matrix[index]; }
 
-IntMatrix &IntMatrix::operator+=(int &value) {
+IntMatrix &IntMatrix::operator+=(const int &value) {
     for (int i = 0; i < rowCount; i++) {
         for (int j = 0; j < matrix[i].len(); j++) {
             matrix[i][j] += value;
         }
     }
     return *this;
+}
+
+IntMatrix IntMatrix::operator*(const int &value) {
+    for (int i = 0; i < rowCount; i++) {
+        for (int j = 0; j < matrix[i].len(); j++) {
+            matrix[i][j] *= value;
+        }
+    }
+    return *this;
+}
+
+IntMatrix IntMatrix::operator*(const IntMatrix &other) {
+    IntMatrix result(rowCount, other.matrix[0].len());
+    for (int i = 0; i < rowCount; i++) {
+        for (int j = 0; j < other.matrix[0].len(); j++) {
+            int sum = 0;
+            for (int k = 0; k < matrix[0].len(); k++) {
+                sum += matrix[i][k] * other.matrix[k][j];
+            }
+            result.changeElement(i, j, sum);
+        }
+    }
+    return result;
 }

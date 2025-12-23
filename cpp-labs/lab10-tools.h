@@ -20,7 +20,7 @@ class IntVector {
     IntVector &operator=(IntVector &&other);
 };
 
-class IntMatrix {
+class IntMatrix : protected IntVector {
   private:
     IntVector *matrix;
     int rowCount;
@@ -45,5 +45,7 @@ class IntMatrix {
     IntMatrix operator-(const IntMatrix &other) const;
     IntVector &operator[](int index);
     const IntVector &operator[](int index) const;
-    IntMatrix &operator+=(int &value);
+    IntMatrix &operator+=(const int &value);
+    IntMatrix operator*(const int &value);
+    IntMatrix operator*(const IntMatrix &other);
 };
