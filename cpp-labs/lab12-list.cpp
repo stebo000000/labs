@@ -26,6 +26,10 @@ template <typename T> void List<T>::append(T data) {
     return;
 }
 
+template <typename T> Node<T> *List<T>::next(Node<T> *current) {
+    return current->next;
+}
+
 template <typename T> void List<T>::add_first(T data) {
     head = new Node<T>(data, head);
     return;

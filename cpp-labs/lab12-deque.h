@@ -1,21 +1,19 @@
 #pragma once
-#include <type_traits>
-template <typename T> struct Node {
+template <typename T> struct Node1 {
     T data;
     int next;
     int prev;
-    Node(T data, int next = 0, int prev = 0)
+    Node1(T data, int next = 0, int prev = 0)
         : data(data), next(next), prev(prev) {}
 };
 
 template <typename T> class Deque {
-  private:
-    Node<T> *deque;
+  public:
+    Node1<T> *deque;
     int arrSize;
     int front;
     int back;
 
-  public:
     Deque();
     ~Deque();
     bool is_empty();

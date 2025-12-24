@@ -1,4 +1,4 @@
-
+#pragma once
 template <typename T> struct Node {
     Node *next;
     T data;
@@ -6,10 +6,10 @@ template <typename T> struct Node {
 };
 
 template <typename T> class List {
-  private:
-    Node<T> *head;
 
   public:
+    Node<T> *head;
+    Node<T> *next(Node<T> *current);
     List();
     ~List();
     bool is_empty();
