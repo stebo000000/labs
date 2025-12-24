@@ -1,49 +1,49 @@
 #include "lab12-deque.h"
-#include "lab12-list.h"
+// #include "lab12-list.h"
 #include <stdio.h>
-
-void fillList(List<int> &list) {
-    int num;
-    for (int i = 0; i < 0; i++) {
-        list.append(i);
-    }
-}
-
-bool isConteinsOdd(List<int> &list) {
-    Node<int> *current = list.head;
-
-    while (current != nullptr) {
-        if (current->data % 2 != 0) {
-            return true;
-        }
-        current = current->next;
-    }
-    return false;
-}
-
-bool isBigger(Node<int> *element, int num) { return element->data > num; }
-
-void deleteByCondition(List<int> &list, int num) {
-    Node<int> *current = list.head;
-    Node<int> *temp = nullptr;
-    while (current != nullptr) {
-        if (isBigger(current, num)) {
-            temp = current->next;
-            list.remove(current);
-            current = temp;
-        } else
-            current = current->next;
-    }
-}
-
-void printList(List<int> &list) {
-    Node<int> *current = list.head;
-    while (current != nullptr) {
-        printf("%d ", current->data);
-        current = current->next;
-    }
-    printf("\n");
-}
+//
+// void fillList(List<int> &list) {
+//     int num;
+//     for (int i = 0; i < 0; i++) {
+//         list.append(i);
+//     }
+// }
+//
+// bool isConteinsOdd(List<int> &list) {
+//     Node<int> *current = list.head;
+//
+//     while (current != nullptr) {
+//         if (current->data % 2 != 0) {
+//             return true;
+//         }
+//         current = current->next;
+//     }
+//     return false;
+// }
+//
+// bool isBigger(Node<int> *element, int num) { return element->data > num; }
+//
+// void deleteByCondition(List<int> &list, int num) {
+//     Node<int> *current = list.head;
+//     Node<int> *temp = nullptr;
+//     while (current != nullptr) {
+//         if (isBigger(current, num)) {
+//             temp = current->next;
+//             list.remove(current);
+//             current = temp;
+//         } else
+//             current = current->next;
+//     }
+// }
+//
+// void printList(List<int> &list) {
+//     Node<int> *current = list.head;
+//     while (current != nullptr) {
+//         printf("%d ", current->data);
+//         current = current->next;
+//     }
+//     printf("\n");
+// }
 
 void printDeque(Deque<char> &deque) {
     int current = deque.front;
@@ -75,23 +75,23 @@ void separateByCaps(Deque<char> &deque, Deque<char> &dequeLitle,
 }
 
 int main(int argc, char **argv) {
-    List<int> list;
+    // List<int> list;
     Deque<char> deque;
     Deque<char> dequeLitle;
     Deque<char> dequeBig;
     fillDeque(deque);
-    printDeque(deque);
-    separateByCaps(deque, dequeLitle, dequeBig);
-    printDeque(dequeLitle);
-    printDeque(dequeBig);
+    // printDeque(deque);
+    // separateByCaps(deque, dequeLitle, dequeBig);
+    // printDeque(dequeLitle);
+    // printDeque(dequeBig);
 
-    fillList(list);
-    if (isConteinsOdd(list)) {
-        int num;
-        scanf("%d", &num);
-        deleteByCondition(list, num);
-    }
-    printList(list);
+    // fillList(list);
+    // if (isConteinsOdd(list)) {
+    //     int num;
+    //     scanf("%d", &num);
+    //     deleteByCondition(list, num);
+    // }
+    // printList(list);
 
     return 0;
 }
