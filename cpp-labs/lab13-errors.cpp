@@ -14,3 +14,11 @@ void DiffrentMatrixSizeError::print() {
     printf("DiffrentMatrixSizeError: matrix size %d:%d != %d:%d\n", rowsA,
            colsA, rowsB, colsB);
 }
+
+void DivisionByZeroError::print() {
+    printf("DivisionByZeroError: division by zero\n");
+}
+
+void DIfferentClassesError::print() {
+    printf("DIfferentClassesError: different classes\n");
+}

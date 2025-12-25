@@ -26,3 +26,15 @@ class DiffrentMatrixSizeError : public BaseError {
     DiffrentMatrixSizeError(int rowsA, int rowsB, int colsA, int colsB);
     void print() override;
 };
+
+class DivisionByZeroError : public BaseError {
+  public:
+    DivisionByZeroError() {}
+    void print() override;
+};
+
+class DIfferentClassesError : public BaseError {
+  public:
+    DIfferentClassesError() {}
+    void print() override;
+};

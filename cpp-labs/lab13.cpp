@@ -1,6 +1,7 @@
 #include "lab11-tools.h"
 #include "lab13-errors.h"
 #include <stdio.h>
+#include <typeinfo>
 
 int main() {
     IntMatrix matrix1(2, 2);
@@ -10,10 +11,14 @@ int main() {
     matrix1.changeElement(1, 0, 3);
     matrix1.changeElement(1, 1, 4);
 
-    IntMatrix matrix2 = IntMatrix(1, 1);
-    matrix2.changeElement(0, 0, 1);
+    // IntMatrix matrix2 = IntMatrix(1, 1);
+    // matrix2.changeElement(0, 0, 1);
+    IntVector matrix2 = IntVector(1);
 
     try {
+        if (typeid(matrix1) != typeid(matrix2)) {
+            throw DIfferentClassesError();
+        }
         // IntMatrix mx4 = matrix1 + matrix2;
         // mx4.print();
         // IntMatrix mx5 = matrix1 - matrix2;

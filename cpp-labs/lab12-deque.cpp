@@ -1,53 +1,62 @@
 #include "lab12-deque.h"
+// Ch\CharDeque
 
-template <typename T> Deque<T>::Deque() {
-    deque = nullptr;
-    arrSize = 0;
-    front = 0;
-    back = 0;
-}
-
-template <typename T> Deque<T>::~Deque() { delete[] deque; }
-
-template <typename T> bool Deque<T>::is_empty() { return front == back; }
-
-template <typename T> void Deque<T>::add_back(T data) {
-    if (back == arrSize) {
-        T *newDeque = new T[arrSize * 2];
-        for (int i = 0; i < arrSize; i++) {
-            newDeque[i] = deque[i];
+void CharDeque::operator>>(const char *filename) {
+    if (filename == nullptr) {
+        int current = front;
+        while (current != back) {
+            printf("%c ", data(current));
+            current++;
         }
-        delete[] deque;
-        deque = newDeque;
-    }
-    arrSize *= 2;
-    deque[back] = data;
-    back++;
-    return;
-}
-
-template <typename T> void Deque<T>::add_front(T data) {
-    if (front == 0) {
-        T *newDeque = new T[arrSize * 2];
-        for (int i = 0; i < arrSize; i++) {
-            newDeque[i] = deque[i];
+        printf("\n");
+    } else {
+        FILE *file = fopen(filename, "w");
+        int current = front;
+        while (current != back) {
+            fprintf(file, "%c ", data(current));
+            current++;
         }
-        delete[] deque;
-        deque = newDeque;
-        front = 1;
+        fprintf(file, "\n");
+        fclose(file);
     }
-    arrSize *= 2;
-    deque[front - 1] = data;
-    front--;
-    return;
 }
 
-template <typename T> T Deque<T>::pop_back() {
-    back--;
-    return deque[back];
+void CharDeque::operator<<(const char *filename) {
+    FILE *file = fopen(filename, "r");
+    char data;
+    while (fscanf(file, "%c", &data) != EOF) {
+        add_back(data);
+    }
+    fclose(file);
 }
 
-template <typename T> T Deque<T>::pop_front() {
-    return deque[front];
-    front++;
+// IntDeque
+
+void IntDeque::operator>>(const char *filename) {
+    if (filename == nullptr) {
+        int current = front;
+        while (current != back) {
+            printf("%d ", data(current));
+            current++;
+        }
+        printf("\n");
+    } else {
+        FILE *file = fopen(filename, "w");
+        int current = front;
+        while (current != back) {
+            fprintf(file, "%d ", data(current));
+            current++;
+        }
+        fprintf(file, "\n");
+        fclose(file);
+    }
+}
+
+void IntDeque::operator<<(const char *filename) {
+    FILE *file = fopen(filename, "r");
+    int data;
+    while (fscanf(file, "%d", &data) != EOF) {
+        add_back(data);
+    }
+    fclose(file);
 }

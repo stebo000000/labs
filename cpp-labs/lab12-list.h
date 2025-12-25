@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdio>
 template <typename T> struct Node {
     Node *next;
     T data;
@@ -6,21 +7,43 @@ template <typename T> struct Node {
 };
 
 template <typename T> class List {
-
   public:
+    T data(Node<T> *current) { return current->data; }
     Node<T> *head;
+    bool is_empty();
     Node<T> *next(Node<T> *current);
     List();
     ~List();
-    bool is_empty();
     void append(T data);
     void add_first(T data);
     void insert_after(T data, Node<T> *current);
     void remove(Node<T> *current);
-    // void print();
-    Node<T> *find(T data);
 };
-#include "lab12-list.h"
+
+class IntList : List<int> {
+  private:
+    bool isBigger(Node<int> *element, int num);
+
+  public:
+    IntList() : List<int>() {}
+    ~IntList() {}
+    void operator>>(const char *filename);
+    void operator<<(const char *filename);
+    bool isConteinsOdd();
+    void deleteByCondition(int num);
+};
+
+class FloatList : List<float> {
+  public:
+    FloatList() : List<float>() {}
+    ~FloatList() {}
+    void operator>>(const char *filename);
+    void operator<<(const char *filename);
+    float findBiggest();
+    bool isInRange();
+    bool isBigger(Node<float> *element, float num);
+    void deleteByCondition(float num);
+};
 
 template <typename T> List<T>::List() : head(nullptr) {}
 
@@ -71,15 +94,4 @@ template <typename T> void List<T>::remove(Node<T> *current) {
     }
     delete current;
     return;
-}
-
-template <typename T> Node<T> *List<T>::find(T data) {
-    Node<T> *current = head;
-    while (current != nullptr) {
-        if (current->data == data) {
-            return current;
-        }
-        current = current->next;
-    }
-    return nullptr;
 }

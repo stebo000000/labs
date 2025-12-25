@@ -1,5 +1,5 @@
-#include "lab11-tools.h"
 #include "lab13-errors.h"
+#include "lab13-tools.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -236,6 +236,18 @@ IntMatrix operator*(const IntMatrix &other, const IntMatrix &another) {
                 sum += other[i][k] * another.matrix[k][j];
             }
             result.changeElement(i, j, sum);
+        }
+    }
+    return result;
+}
+
+IntMatrix operator/(const IntMatrix &other, const int &value) {
+    IntMatrix result(other.rowCount, other[0].len());
+    if (value == 0)
+        throw DivisionByZeroError();
+    for (int i = 0; i < other.rowCount; i++) {
+        for (int j = 0; j < other[i].len(); j++) {
+            result[i][j] = other.matrix[i][j] / value;
         }
     }
     return result;

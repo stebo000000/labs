@@ -52,4 +52,5 @@ class IntMatrix : IntVector {
     friend IntMatrix operator*(const IntMatrix &other, const int &value);
     friend IntMatrix operator*(const IntMatrix &other,
                                const IntMatrix &another);
+    friend IntMatrix operator/(const IntMatrix &other, const int &value);
 };
