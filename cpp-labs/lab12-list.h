@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <cstdio>
 template <typename T> struct Node {
     Node *next;
@@ -8,6 +9,7 @@ template <typename T> struct Node {
 
 template <typename T> class List {
   public:
+    bool isLast(Node<T> *current) { return current->next == nullptr; }
     T data(Node<T> *current) { return current->data; }
     Node<T> *head;
     bool is_empty();
@@ -16,11 +18,64 @@ template <typename T> class List {
     ~List();
     void append(T data);
     void add_first(T data);
-    void insert_after(T data, Node<T> *current);
+    void insert_after(T data, Node<T> *&current);
     void remove(Node<T> *current);
+    void remove_first();
+    void remove_last();
+    Node<T> *sort(Node<T> *&current);
+    void merge(Node<T> *&left, Node<T> *&right);
+    bool isEnd(Node<T> *current) { return current == nullptr; }
+    void nullfyNext(Node<T> *current) { current->next = nullptr; }
 };
 
-class IntList : List<int> {
+template <typename T> void List<T>::merge(Node<T> *&left, Node<T> *&right) {
+    List<T> *result = new List<T>();
+    while (!isEnd(left) && !isEnd(right)) {
+        if (data(left) < data(right)) {
+            result->append(data(left));
+            left = next(left);
+        } else {
+            result->append(data(right));
+            right = next(right);
+        }
+    }
+    while (!isEnd(left)) {
+        result->append(data(left));
+        left = next(left);
+    }
+    while (!isEnd(right)) {
+        result->append(data(right));
+        right = next(right);
+    }
+    left = result->head;
+    return;
+}
+
+template <typename T> Node<T> *List<T>::sort(Node<T> *&current) {
+    if (isEnd(current) || isLast(current)) {
+        return current;
+    }
+
+    Node<T> *slow = current;
+    Node<T> *fast = next(current);
+    while (!isEnd(fast) && !isLast(fast)) {
+        slow = next(slow);
+        fast = next(next(fast));
+    }
+
+    Node<T> *mid = next(slow);
+    nullfyNext(slow);
+
+    Node<T> *left = sort(current);
+    Node<T> *right = sort(mid);
+
+    merge(left, right);
+    head = left;
+
+    return left;
+}
+
+class IntList : public List<int> {
   private:
     bool isBigger(Node<int> *element, int num);
 
@@ -59,7 +114,7 @@ template <typename T> void List<T>::append(T data) {
         head = new Node<T>(data);
     } else {
         Node<T> *current = head;
-        while (current->next != nullptr) {
+        while (!isLast(current)) {
             current = current->next;
         }
         current->next = new Node<T>(data);
@@ -76,9 +131,11 @@ template <typename T> void List<T>::add_first(T data) {
     return;
 }
 
-template <typename T> void List<T>::insert_after(T data, Node<T> *current) {
-
-    current->next = new Node<T>(data, current->next);
+template <typename T> void List<T>::insert_after(T data, Node<T> *&current) {
+    if (isEnd(current)) {
+        current = new Node<T>(data);
+    } else
+        current->next = new Node<T>(data, current->next);
     return;
 }
 
@@ -93,5 +150,22 @@ template <typename T> void List<T>::remove(Node<T> *current) {
         prev->next = current->next;
     }
     delete current;
+    return;
+}
+
+template <typename T> void List<T>::remove_first() {
+    Node<T> *current = head;
+    head = current->next;
+    delete current;
+    return;
+}
+
+template <typename T> void List<T>::remove_last() {
+    Node<T> *current = head;
+    while (!isLast(current->next)) {
+        current = current->next;
+    }
+    delete current->next;
+    current->next = nullptr;
     return;
 }

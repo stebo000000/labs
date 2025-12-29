@@ -4,15 +4,16 @@
 void IntList::operator>>(const char *filename) {
     if (filename == nullptr) {
         Node<int> *current = head;
-        while (current != nullptr) {
+        while (!isLast(current)) {
             printf("%d ", current->data);
             current = next(current);
         }
+        printf("%d", current->data);
         printf("\n");
     } else {
         FILE *file = fopen(filename, "w");
         Node<int> *current = head;
-        while (current != nullptr) {
+        while (!isLast(current)) {
             fprintf(file, "%d ", current->data);
             current = next(current);
         }
@@ -33,7 +34,7 @@ void IntList::operator<<(const char *filename) {
 bool IntList::isConteinsOdd() {
     Node<int> *current = head;
     bool isOdd = false;
-    while (current != nullptr && !isOdd) {
+    while (!isLast(current) && !isOdd) {
         if (data(current) % 2 != 0) {
             isOdd = true;
         }
@@ -45,7 +46,7 @@ bool IntList::isConteinsOdd() {
 void IntList::deleteByCondition(int num) {
     Node<int> *current = head;
     Node<int> *temp = nullptr;
-    while (current != nullptr) {
+    while (!isLast(current)) {
         if (data(current) > num) {
             temp = next(current);
             remove(current);
@@ -60,7 +61,7 @@ void IntList::deleteByCondition(int num) {
 void FloatList::operator>>(const char *filename) {
     if (filename == nullptr) {
         Node<float> *current = head;
-        while (current != nullptr) {
+        while (!isLast(current)) {
             printf("%f ", data(current));
             current = next(current);
         }
@@ -68,7 +69,7 @@ void FloatList::operator>>(const char *filename) {
     } else {
         FILE *file = fopen(filename, "w");
         Node<float> *current = head;
-        while (current != nullptr) {
+        while (!isLast(current)) {
             fprintf(file, "%f ", data(current));
             current = next(current);
         }
@@ -89,7 +90,7 @@ void FloatList::operator<<(const char *filename) {
 float FloatList::findBiggest() {
     Node<float> *current = head;
     float max = data(current);
-    while (current != nullptr) {
+    while (!isLast(current)) {
         if (data(current) > max) {
             max = data(current);
         }
@@ -101,7 +102,7 @@ float FloatList::findBiggest() {
 bool FloatList::isInRange() {
     Node<float> *current = head;
     bool isInRange = false;
-    while (current != nullptr && !isInRange) {
+    while (!isLast(current) && !isInRange) {
         if (data(current) > 0 && data(current) < 1) {
             isInRange = true;
         }
@@ -113,7 +114,7 @@ bool FloatList::isInRange() {
 void FloatList::deleteByCondition(float num) {
     Node<float> *current = head;
     Node<float> *temp = nullptr;
-    while (current != nullptr) {
+    while (!isLast(current)) {
         if (data(current) > num) {
             temp = next(current);
             remove(current);
