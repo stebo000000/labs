@@ -12,13 +12,18 @@ int main(int argc, char **argv) {
     IntDeque dequeLitle1;
     IntDeque dequeBig1;
 
+    printf("\ndeque of char: \n");
     deque << argv[2];
-
     deque >> nullptr;
-
     CharDeque d = deque.sort(deque);
-
     d >> nullptr;
+
+    printf("\ndeque of int: \n");
+    deque1 << argv[1];
+    deque1 >> nullptr;
+    IntDeque d1 = deque1.sort(deque1);
+    d1 >> nullptr;
+    
 
     // char temp;
     // while (!deque.is_empty()) {
@@ -49,11 +54,18 @@ int main(int argc, char **argv) {
     // dequeBig1 >> nullptr;
     // dequeLitle1 >> nullptr;
     //
+    printf("\nlist of int: \n");
     list << argv[1];
     list >> nullptr;
-
+    
     list.sort(list.head);
     list >> nullptr;
+    
+    printf("\nlist of float: \n");
+    list1 << argv[1];
+    list1 >> nullptr;
+    list1.sort(list1.head);
+    list1 >> nullptr;
 
     // if (list.isConteinsOdd()) {
     //     int num;

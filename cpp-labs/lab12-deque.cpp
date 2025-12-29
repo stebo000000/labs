@@ -110,14 +110,70 @@ CharDeque CharDeque::sort(CharDeque &deque) {
         }
         return deque;
     }
-    // printf("ww\n");
     CharDeque left1 = sort(left);
     CharDeque right1 = sort(right);
     merge(left1, right1);
-    // left1 >> nullptr;
     while (!left1.is_empty()) {
         left1.btf(deque);
     }
-    // deque >> nullptr;
+    return deque;
+}
+
+IntDeque IntDeque::merge(IntDeque &left, IntDeque &right) {
+    IntDeque result;
+    char leftE = left.pop_back();
+    char rightE = right.pop_back();
+    while (!left.is_empty() && !right.is_empty()) {
+        if (leftE > rightE) {
+            result.add_front(leftE);
+            leftE = left.pop_back();
+        } else {
+            result.add_front(rightE);
+            rightE = right.pop_back();
+        }
+    }
+    
+    if (leftE > rightE ) {
+        result.add_front(leftE);
+        result.add_front(rightE);
+    } else {
+        result.add_front(rightE);
+        result.add_front(leftE);
+    }
+
+    while (!left.is_empty()) {
+        result.add_front(left.pop_back());
+    }
+    while (!right.is_empty()) {
+        result.add_front(right.pop_back());
+    }
+
+    while (!result.is_empty()) {
+        result.btf(left);
+    }
+    return left;
+}
+
+IntDeque IntDeque::sort(IntDeque &deque) {
+    IntDeque left;
+    IntDeque right;
+    while (!deque.is_empty()) {
+        deque.btf(left);
+        if (!deque.is_empty()) {
+            deque.btf(right);
+        }
+    }
+    if (right.is_empty()) {
+        while (!left.is_empty()) {
+            left.btf(deque);
+        }
+        return deque;
+    }
+    IntDeque left1 = sort(left);
+    IntDeque right1 = sort(right);
+    merge(left1, right1);
+    while (!left1.is_empty()) {
+        left1.btf(deque);
+    }
     return deque;
 }

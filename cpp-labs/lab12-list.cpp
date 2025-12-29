@@ -61,7 +61,7 @@ void IntList::deleteByCondition(int num) {
 void FloatList::operator>>(const char *filename) {
     if (filename == nullptr) {
         Node<float> *current = head;
-        while (!isLast(current)) {
+        while (!isEnd(current)) {
             printf("%f ", data(current));
             current = next(current);
         }

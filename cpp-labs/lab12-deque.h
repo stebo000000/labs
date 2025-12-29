@@ -79,6 +79,9 @@ class IntDeque : public Deque<int> {
     ~IntDeque() {}
     void operator<<(const char *filename);
     void operator>>(const char *filename);
+
+    IntDeque sort(IntDeque &deque);
+    IntDeque merge(IntDeque &left, IntDeque &right);
 };
 
 template <typename T> Deque<T>::Deque(const Deque<T> &other) {

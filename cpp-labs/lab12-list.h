@@ -88,7 +88,7 @@ class IntList : public List<int> {
     void deleteByCondition(int num);
 };
 
-class FloatList : List<float> {
+class FloatList : public List<float> {
   public:
     FloatList() : List<float>() {}
     ~FloatList() {}
