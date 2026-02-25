@@ -13,6 +13,7 @@
 
 (format t "~%my-sum: ~a" (my-sum '(1 2 3 1 2)))
 
+
 (defun list-deep (L)
     (if (atom L)
         0
@@ -20,17 +21,32 @@
 
 (format t "~%list-deep: ~a" (list-deep '(1 2 (3) 5 (4 (2 3 5)))))
 
+
 (defun find-max (L)
-    (if (atom L)
-        (if (null L)
-            0
-            L)
-        (max (find-max (first L)) (find-max (rest L)))))
+    (cond 
+        ((null L) 0)
+        ((atom L) L)
+        (T (max (find-max (first L)) (find-max (rest L))))))
 
 (format t "~%find-max: ~a" (find-max '(1 (2 4) 3 (2 (9)))))
 
 
-(defun f2 (x)
-    (not x))
+(defun my-eval (lst &optional (stack '()) (current 0))
+  (cond
+    ((atom lst) (
+        cond
+        ((equal current "+") (push current stack))
+        ((equal current "-") (push current stack))
+        ((equal current "*") (push current stack))
+        ((equal current "/") (push current stack))
+        ((equal current "(") (push current stack))
+        ((equal current ")") (push current stack))
+        ((equal (first stack) "+") (+ (pop stack) (pop stack)))
+        ((equal (first stack) "-") (- (pop stack) (pop stack)))
+        ((equal (first stack) "*") (* (pop stack) (pop stack)))
+        ((equal (first stack) "/") (/ (pop stack) (pop stack)))
+    ))
+    ((null current) current)
+    ((list current) (my-eval (rest lst) stack (first lst)))))
 
-(format t "~%f2: ~a" (f2 nil))
+(format t "~%eval: ~a" (my-eval '(2 + 3)))

@@ -14,7 +14,7 @@
 
 (format t "~%nod: ~a" (nod 4 6))
 
-(defun nok (x y) ; хз норм ли (не рекурсия)
+(defun nok (x y)
     (/ (* x y) (nod x y)))
 
 (format t "~%nok: ~a" (nok 4 6))
@@ -36,4 +36,4 @@
 
 )
 
-(format t "~%fib: ~a" (fib 4))
+(format t "~%fib: ~a" (fib 100))
