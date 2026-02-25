@@ -18,18 +18,21 @@ void ExponentialPolynomial::add(Term term) {
 void ExponentialPolynomial::print() {
   Node *current = head;
   while (current != nullptr) {
-    std::cout << current->term.coefficient << "x^" << current->term.x_pow
-              << "e^" << current->term.e_pow << " + ";
+    std::cout << current->term.coefficient << "*" << "x^" << current->term.x_pow
+              << "*" << "e^" << current->term.e_pow;
     current = current->next;
+    if (current != nullptr) {
+      std::cout << " + ";
+    }
   }
-  std::cout << std::endl;
+  std::cout << "\n";
 }
 
 ExponentialPolynomial ExponentialPolynomial::integrate() {
   ExponentialPolynomial result;
   Node *current = head;
   while (current != nullptr) {
-    Term new_term = Term(current->term.coefficient / current->term.x_pow /
+    Term new_term = Term(current->term.coefficient / (current->term.x_pow + 1) /
                              current->term.e_pow,
                          current->term.e_pow, current->term.x_pow + 1);
     result.add(new_term);
