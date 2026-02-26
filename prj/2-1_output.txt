@@ -1,7 +1,0 @@
-a: [eqrtwy]
-b: [ertuwy]
-c: [eirtuy]
-Объединение: [eqrtuwy]
-Пересечение: [ertwy]
-Разность:    [q]
-Выражение:   [erty]
