@@ -31,22 +31,65 @@
 (format t "~%find-max: ~a" (find-max '(1 (2 4) 3 (2 (9)))))
 
 
-(defun my-eval (lst &optional (stack '()) (current 0))
-  (cond
-    ((atom lst) (
-        cond
-        ((equal current "+") (push current stack))
-        ((equal current "-") (push current stack))
-        ((equal current "*") (push current stack))
-        ((equal current "/") (push current stack))
-        ((equal current "(") (push current stack))
-        ((equal current ")") (push current stack))
-        ((equal (first stack) "+") (+ (pop stack) (pop stack)))
-        ((equal (first stack) "-") (- (pop stack) (pop stack)))
-        ((equal (first stack) "*") (* (pop stack) (pop stack)))
-        ((equal (first stack) "/") (/ (pop stack) (pop stack)))
-    ))
-    ((null current) current)
-    ((list current) (my-eval (rest lst) stack (first lst)))))
 
-(format t "~%eval: ~a" (my-eval '(2 + 3)))
+(defun apply-op (op left right)
+  (cond ((eq op '+) (+ left right))
+        ((eq op '-) (- left right))
+        ((eq op '*) (* left right))
+        ((eq op '/) (/ left right))
+        (t )))
+
+
+(defun parse-expr (tokens)
+  (let ((result (parse-term tokens)))
+    (parse-expr-rest (car result) (cdr result))))
+
+(defun parse-expr-rest (left tokens)
+  (cond
+    ((and (consp tokens)
+          (member (car tokens) '(+ -)))
+     (let* ((op (car tokens))
+            (rest (cdr tokens))
+            (right-result (parse-term rest))
+            (right (car right-result))
+            (remaining (cdr right-result)))
+       (parse-expr-rest (apply-op op left right) remaining)))
+    (t (cons left tokens))))
+
+(defun parse-term (tokens)
+  (let ((result (parse-factor tokens)))
+    (parse-term-rest (car result) (cdr result))))
+
+(defun parse-term-rest (left tokens)
+  (cond
+    ((and (consp tokens)
+          (member (car tokens) '(* /)))
+     (let* ((op (car tokens))
+            (rest (cdr tokens))
+            (right-result (parse-factor rest))
+            (right (car right-result))
+            (remaining (cdr right-result)))
+       (parse-term-rest (apply-op op left right) remaining)))
+    (t (cons left tokens))))
+
+(defun parse-factor (tokens
+  (cond
+    ((and (consp tokens) (eq (car tokens) '-))
+     (let* ((inner (parse-factor (cdr tokens)))
+            (val (car inner))
+            (rem (cdr inner)))
+       (cons (- val) rem)))
+    ((and (consp tokens) (numberp (car tokens)))
+     (cons (car tokens) (cdr tokens)))
+    ((and (consp tokens) (listp (car tokens)))
+     (let* ((inner-result (parse-expr (car tokens)))
+            (val (car inner-result)))
+       (cons val (cdr tokens))))
+    (t )))
+
+
+(defun eval-expr (expr)
+  (let ((result (parse-expr expr)))
+    (car result))))
+
+(format t "~%eval: ~a" (eval-expr '((2 + 3) * 2)))
