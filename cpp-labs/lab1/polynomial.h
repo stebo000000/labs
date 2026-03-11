@@ -5,8 +5,9 @@ struct Term {
   int e_pow;
   int x_pow;
 
-  Term(float coefficient, int e_pow, int x_pow)
+  Term(float coefficient = 1, int e_pow = 1, int x_pow = 1)
       : coefficient(coefficient), e_pow(e_pow), x_pow(x_pow) {}
+  Term(const Term& other) {coefficient = other.coefficient; e_pow = other.e_pow; x_pow = other.x_pow;}
 };
 
 struct Node {

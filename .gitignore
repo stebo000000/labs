@@ -3,3 +3,5 @@
 *.bat
 start_listener.bat
 *.zxc
+.vscode
+venv

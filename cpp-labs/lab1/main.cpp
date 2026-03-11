@@ -4,6 +4,8 @@
 int main() {
   ExponentialPolynomial polynomial;
   char userInput;
+  std::cout << "h - help\na - add\np - print\ni - integrate\nq - quit\nf - "
+               "from file\n";
   while (true) {
     std::cin >> userInput;
     switch (userInput) {
